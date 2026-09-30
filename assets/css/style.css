@@ -99,6 +99,9 @@ main { padding: 56px 0 88px; min-height: 60vh; }
   font-size: 13px; line-height: 1.4; padding: 3px 10px; border-radius: 999px;
   background: var(--accent-soft); color: var(--accent); font-weight: 500;
 }
+/* 본문 목록(.p-section ul, .entry ul 등)의 들여쓰기·항목 간격이 태그에 적용되지 않도록 */
+.tags.tags { padding-left: 0; align-items: center; }
+.tags.tags li { margin: 0; }
 
 .contacts { list-style: none; padding: 0; margin: 20px 0 0; display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 16px; }
 .contacts .label { color: var(--muted); margin-right: 6px; font-size: 14px; }
