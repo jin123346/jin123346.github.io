@@ -1,0 +1,230 @@
+{
+  "profile": {
+    "name": "하진희",
+    "title": "백엔드 개발자",
+    "tagline": "운영 경험을 개발 역량으로 확장해 온 백엔드 개발자",
+    "summary": "서버·인프라 운영 경험을 바탕으로 데이터베이스와 백엔드 개발 역량을 확장해 온 개발자입니다. 현재 국립중앙과학관에서 자연사정보시스템(NARIS)을 운영하며 PostgreSQL 기반 데이터 관리, SQL 성능 분석, 시스템 장애 원인 분석 및 Python 기반 업무 자동화를 수행하고 있습니다.",
+    "intro": "저는 인프라 운영 경험을 바탕으로 애플리케이션과 데이터베이스 영역까지 역량을 확장해 온 백엔드 개발자입니다.\n\n이전에는 Nutanix 기반 가상화 환경에서 서버 구축과 고객사 인프라 유지보수를 담당하며 서버와 운영환경에 대한 이해를 쌓았습니다. 이후 애플리케이션과 데이터베이스까지 포함한 서비스 전체의 흐름을 이해하고 싶다는 목표로 Java와 Spring 기반 백엔드 개발을 학습하고 프로젝트를 수행했습니다.\n\n현재는 국립중앙과학관에서 자연사정보시스템(NARIS)을 운영하며 데이터·DB 관리, SQL 기반 데이터 조회 및 검증, 시스템 오류 분석, 유지보수 지원 업무를 수행하고 있습니다. 문제가 발생하면 현상만 전달하기보다 서버 로그, DB 데이터, HTTP 응답, 애플리케이션 처리 흐름을 함께 확인하며 원인의 범위를 좁히고, 유지보수 담당자와 분석 내용을 공유하여 해결까지 연결하고 있습니다.\n\n최근에는 약 50만 건 규모의 NARIS OpenAPI 조회 성능 문제를 PostgreSQL 실행계획으로 분석하여 행 단위로 반복되던 사용자 정의 함수와 스칼라 서브쿼리를 JOIN 기반 집합 처리 방식으로 개선했습니다. 실제 API 조회 구조를 재현한 테스트에서 실행시간을 52.4초에서 7.8초로 단축하고 Shared Buffer 접근량을 약 87% 감소시키며, SQL과 데이터베이스 구조가 서비스 성능에 미치는 영향을 실무에서 직접 경험했습니다.\n\n또한 업무 과정에서 반복되거나 비효율적인 작업을 발견하면 기존 방식에 머무르기보다 직접 개선 방법을 찾고 있습니다. Python을 활용해 데이터 전처리·변환·검증 및 파일 처리 업무를 자동화하고, 실제 업무에 필요한 데이터 처리 도구를 직접 개발하며 업무 흐름을 개선해 왔습니다.\n\n저의 강점은 서버, 애플리케이션, 데이터베이스를 개별적으로 바라보기보다 전체 흐름 속에서 문제의 원인을 분석하고, 필요한 개선을 실제 구현과 검증으로 연결하는 점입니다. 앞으로도 안정적인 서비스 운영과 효율적인 데이터 처리를 함께 고려하는 백엔드 개발자로 성장하고자 합니다.",
+    "photo": "assets/images/profile.jpg",
+    "email": "hajhi7899@gmail.com",
+    "phone": "",
+    "links": [
+      { "label": "GitHub", "url": "https://github.com/jin123346" },
+      { "label": "Blog", "url": "https://codejinjinh.tistory.com/" }
+    ],
+    "resumePdf": ""
+  },
+
+  "achievements": [
+    "PostgreSQL OpenAPI 조회 성능 분석 및 개선을 통해 실행시간 52.4초 → 7.8초, 약 85% 단축",
+    "공통코드 및 공개기간 관련 반복 함수 호출 약 660만 회 제거, Shared Buffer 접근량 약 87% 감소",
+    "Python 기반 자연사·생물다양성 데이터 처리 자동화 도구 개발 및 반복 업무 자동화",
+    "서버 로그, HTTP 응답, DB 데이터, Java Web Application 구조를 기반으로 운영 장애 원인 분석 및 해결 지원",
+    "GBIF Darwin Core 기반 생물다양성 데이터 표준화 및 국제 데이터 연계 수행",
+    "AI 기반 생물 이미지 자동 동정 PoC 수행 및 국제과학관심포지엄 우수상 수상"
+  ],
+
+  "strengths": [
+    {
+      "title": "SQL / Database",
+      "desc": "PostgreSQL 기반 데이터 조회·검증, EXPLAIN ANALYZE / BUFFERS 실행계획 분석 및 SQL 성능 개선"
+    },
+    {
+      "title": "Backend Troubleshooting",
+      "desc": "서버 로그, HTTP 요청·응답, 애플리케이션 처리 흐름, DB 데이터를 연계하여 장애 원인 분석"
+    },
+    {
+      "title": "Java Web 구조 이해",
+      "desc": "Controller → Service → DAO → SQL 구조 분석 및 운영 애플리케이션 처리 흐름 추적"
+    },
+    {
+      "title": "Python Automation",
+      "desc": "Pandas·REST API를 활용한 데이터 전처리·변환·검증 및 파일 처리 자동화 도구 개발"
+    },
+    {
+      "title": "Infrastructure / Operations",
+      "desc": "Nutanix 가상화 인프라 구축 경험 및 Apache/Tomcat 기반 웹 서비스 운영환경 이해"
+    },
+    {
+      "title": "Data Engineering",
+      "desc": "외부 API 데이터 수집·파싱·적재, 데이터 정합성 검증 및 Darwin Core 기반 표준 데이터 매핑"
+    }
+  ],
+
+  "workstyle": {
+    "title": "업무 방식 및 협업",
+    "text": "저는 문제를 단순히 처리하는 데 그치지 않고, 원인을 파악하고 실제 사용자와 업무 흐름에 맞게 개선하는 것을 중요하게 생각합니다.\n\n시스템 오류가 발생하면 먼저 재현 조건을 확인하고 서버 로그, DB 데이터, 애플리케이션 처리 흐름을 함께 분석해 원인 범위를 좁힙니다. 이후 확인한 현상과 재현 조건, 분석 결과를 구조화해 유지보수 업체나 관련 담당자와 공유하고 수정 방향을 협의합니다. 조치 이후에는 실제 서비스 동작과 데이터 반영 여부를 다시 검증해 문제 해결 여부를 확인합니다.\n\n기능이나 업무 도구를 개발할 때는 요구사항을 그대로 구현하기보다 실제 사용자가 어떤 과정에서 불편을 겪는지 먼저 확인합니다. 구현 이후에도 피드백을 반영해 데이터 입력 방식, 처리 절차, 검증 기능 등을 보완하며 실제 업무에 적합한 형태로 개선해 왔습니다.\n\n협업에서는 상대방이 빠르게 상황을 이해할 수 있도록 오류 현상, 재현 조건, 로그와 데이터 확인 결과를 명확하게 정리해 전달하는 것을 중요하게 생각합니다. 개발·운영 담당자, 유지보수 업체, 데이터 구축업체, 외부 기관 등 다양한 역할의 담당자와 협업하며 요구사항과 수정사항을 조율하고, 변경 사항이 다른 기능이나 데이터 처리에 미치는 영향까지 확인하는 방식으로 업무를 수행해 왔습니다.\n\n저에게 협업은 단순한 업무 전달이 아니라, 문제를 함께 정의하고 필요한 정보를 명확하게 공유하며 실제 개선 결과로 연결하는 과정입니다."
+  },
+
+  "experience": [
+    {
+      "org": "국립중앙과학관",
+      "period": "2025.07 ~ 재직중",
+      "role": "자연사정보시스템(NARIS) 운영 · 백엔드/DB 분석 · 데이터 처리 자동화",
+      "summary": [
+        "PostgreSQL 실행계획 분석으로 OpenAPI 조회 성능 개선 — 52.4초 → 7.8초 (약 85% 단축)",
+        "서버 로그·HTTP 응답·DB 데이터·Java Web 구조 기반 운영 장애 원인 분석 및 해결",
+        "Python 기반 데이터 전처리·변환·검증 자동화 도구 개발",
+        "GBIF Darwin Core 표준 데이터 매핑 및 외부기관 제공 데이터 품질관리"
+      ],
+      "tasks": [
+        "자연사정보시스템(NARIS) 운영 및 PostgreSQL 기반 데이터·DB 관리",
+        "SQL을 활용한 운영 데이터 조회·추출 및 중복·누락·불일치 데이터 검증",
+        "EXPLAIN ANALYZE, BUFFERS 기반 SQL 실행계획 분석 및 조회 성능 개선",
+        "서버 로그, HTTP 응답, DB 데이터 및 Java Web Application 구조를 기반으로 운영 장애 원인 분석",
+        "Python 기반 데이터 전처리·변환·검증 및 반복 업무 자동화 도구 개발",
+        "GBIF 국제 생물다양성 데이터 등록을 위한 Darwin Core 표준 데이터 매핑 및 품질 검증",
+        "시스템 오류 재현 및 영향 범위 분석 후 유지보수 업체와 개선사항 협의, 수정 결과 검증",
+        "외부기관 데이터 제공을 위한 데이터 추출·정제·검증 및 데이터 품질관리"
+      ],
+      "highlights": [
+        {
+          "title": "NARIS 표본정보 OpenAPI 조회 성능 개선",
+          "items": [
+            "약 50만 건 규모의 표본정보를 조회하는 PostgreSQL VIEW 및 OpenAPI Mapper의 응답 지연 원인 분석",
+            "EXPLAIN ANALYZE / BUFFERS를 활용하여 실행계획과 Buffer 사용량을 분석하고, 공통코드 조회 함수와 공개기간 판별 함수가 행 단위로 반복 실행되는 Row-by-Row 병목 식별",
+            "스칼라 서브쿼리와 사용자 정의 함수 호출을 JOIN 기반 집합 처리 방식으로 재구성하고, 반복 조회되는 공통코드 데이터를 CTE로 분리",
+            "공통코드·공개기간 관련 함수 호출 약 660만 회 제거",
+            "Shared Buffer 접근량 16.2M → 2.06M으로 약 87% 감소",
+            "실제 API Mapper의 ROW_NUMBER() 및 Pagination 구조를 재현한 성능 테스트에서 조회시간 52.4초 → 7.8초로 약 85% 단축(약 6.7배 개선)",
+            "개선 전·후 실행계획 및 메모리 설정에 따른 Sort/Temp 사용량을 비교하여 성능 개선 효과 검증"
+          ],
+          "tech": ["PostgreSQL", "SQL", "EXPLAIN ANALYZE", "BUFFERS", "Query Optimization", "CTE", "JOIN"]
+        },
+        {
+          "title": "NARIS 운영 장애 분석 및 Java 애플리케이션 처리 흐름 추적",
+          "items": [
+            "운영환경에서 직접적인 소스 수정 및 디버깅이 제한된 상황에서 서버 로그, HTTP 응답 및 DB 데이터를 기반으로 장애 발생 구간 분석",
+            "필요 시 배포된 WAR 파일의 패키지·클래스 구조를 확인하여 Controller → Service → DAO → SQL 호출 흐름 추적",
+            "요청 파라미터, 애플리케이션 처리 로직 및 실제 DB 데이터를 비교하여 화면상 정상 처리 이후 DB에 데이터가 반영되지 않는 문제 등의 원인 범위 구체화",
+            "연계서비스 신청 장애 분석 과정에서 화면에서 입력받지 않는 사용자 정보가 DB 중복 검증 조건에 포함된 로직을 확인하고 SQL 실행 흐름을 추적하여 오류 조건 식별",
+            "재현 절차, 영향 범위 및 분석 결과를 유지보수 업체에 전달하고 수정 방향 협의",
+            "수정 후 동일 조건에서 기능 동작 및 DB 데이터 반영 여부를 직접 재검증"
+          ],
+          "tech": ["Java Web Application", "PostgreSQL", "SQL", "IntelliJ", "WAR Structure Analysis", "Server Log"]
+        },
+        {
+          "title": "Python 기반 생물다양성 데이터 처리 자동화 도구 개발",
+          "items": [
+            "반복적으로 수행되던 Excel 데이터 작성, 이미지 정리, 파일명 변경 및 GBIF 데이터 변환 업무를 자동화하기 위한 로컬 데이터 처리 도구 개발",
+            "이미지 디렉터리를 분석하여 파일정보를 기반으로 Excel 데이터를 자동 생성하는 기능 구현",
+            "DB 식별값과 이미지 데이터를 매핑하여 이미지 파일명을 일괄 변경하는 기능 구현",
+            "기관별 원천 데이터를 GBIF의 Darwin Core 국제표준 필드에 맞게 변환·매핑하는 데이터 처리 기능 구현",
+            "외부 생물정보 API를 연계하여 데이터 조회 및 검증 과정 간소화",
+            "위·경도 데이터 오류 확인을 위한 좌표 기반 위치 확인 기능 구현",
+            "인코딩 서버 사용 권한 중단으로 NARIS 동영상 등록 경로가 막히자, 줌 촬영 등으로 용량이 커 업로드되지 않던 원본 동영상을 업로드 가능한 크기·인코딩으로 일괄 변환하는 Python 전처리 스크립트를 구현해 인코딩 서버 역할을 대체하고 실제 업로드로 검증",
+            "반복적인 수작업을 하나의 로컬 처리 흐름으로 통합하여 데이터 가공 과정의 반복 작업 및 입력 오류 감소"
+          ],
+          "tech": ["Python", "Pandas", "Excel", "REST API", "GBIF API", "Darwin Core", "Data Processing", "Video Encoding"]
+        },
+        {
+          "title": "보안점검 대응 Error Page 적용 및 로그인 세션 장애 해결",
+          "items": [
+            "보안점검 결과에 따라 Apache/Tomcat 환경에서 기본 오류 화면 및 상세 서버 오류 정보가 노출되지 않도록 공통 Error Page 적용",
+            "Apache 리버스 프록시 앞단에서 오류 발생 시 홈으로 이동시키도록 적용된 이후, 프록시 뒤 Tomcat에서 동작하는 IPT 관리자 화면에서 탭·페이지 이동 시 로그인 세션이 해제되는 현상 발생",
+            "Apache ErrorDocument, ProxyErrorOverride, Tomcat 오류 처리 설정, 애플리케이션 인증 흐름을 비교하여 오류페이지 처리 위치에 따른 세션 영향 분석",
+            "IPT 초기 화면에서 지속적으로 발생하던 정적 리소스 404를 Apache가 가로채 홈으로 리다이렉트하면서 인증 흐름이 끊기는 원인 확인",
+            "불필요한 404 리소스 호출을 수정·대체하고, 오류페이지 처리를 Apache 앞단이 아닌 Tomcat 단으로 조정하여 상세 오류정보 노출 차단과 기존 로그인 세션 유지를 함께 충족",
+            "수정 후 HTTP 오류 응답, 로그인 유지, 관리자 화면 탭 이동 기능을 재검증하여 보안 요구사항과 정상 서비스 동작을 모두 만족하도록 개선"
+          ],
+          "tech": ["Apache", "ErrorDocument", "ProxyErrorOverride", "Tomcat", "Session", "HTTP"]
+        },
+        {
+          "title": "GBIF 생물다양성 데이터 표준화 및 국제 데이터 연계",
+          "items": [
+            "기관별로 서로 다른 구조로 관리되는 자연사·생물다양성 데이터를 GBIF Darwin Core 국제표준에 맞게 분석 및 매핑",
+            "학명, 채집일자, 좌표, 분류정보 등 주요 필드의 누락·형식·중복·정합성 검증",
+            "SQL, Python 및 Excel을 활용하여 대량 데이터의 오류 유형을 탐색하고 수정 대상 데이터 추출",
+            "GBIF 등록 이후 원본 데이터와 공개 데이터의 건수 및 주요 필드를 비교하여 등록 결과 검증",
+            "데이터셋 등록·수정 및 연계 과정에서 발생하는 데이터 오류와 표준 항목 관련 문의 대응",
+            "기관 담당자 및 데이터 구축업체와 데이터 구조, 표준 필드 정의 및 수정 기준 협의"
+          ],
+          "tech": ["SQL", "Python", "Excel", "GBIF", "Darwin Core", "Data Validation", "Data Mapping"]
+        },
+        {
+          "title": "AI 기반 생물 이미지 자동 동정 가능성 검증 PoC",
+          "items": [
+            "NARIS가 보유한 생물 이미지 데이터를 활용하여 AI 기반 생물 종 자동 동정 적용 가능성 검토",
+            "모델 학습용 이미지 데이터셋 구성 및 Annotation 수행",
+            "YOLO 기반 객체 탐지 모델을 적용하여 학습 및 예측 결과 분석",
+            "이미지 데이터의 품질 및 학습 데이터 구성에 따른 예측 결과 차이 검토",
+            "자동 동정 결과를 생물 이미지 검수 및 데이터 품질관리 과정에 활용하는 방안 제안",
+            "연구 결과를 국제과학관심포지엄 포스터로 발표하여 우수상 수상"
+          ],
+          "tech": ["Python", "YOLO", "Image Annotation", "Object Detection", "Machine Learning"]
+        }
+      ]
+    },
+    {
+      "org": "벨로크",
+      "period": "2023.08 ~ 2024.05",
+      "role": "Nutanix 기반 가상화 인프라 구축 및 유지보수",
+      "summary": [
+        "Nutanix AHV 기반 고객사 가상화 인프라 구축 및 유지보수",
+        "데이터센터 현장 서버 설치·케이블링 및 가상화 클러스터·VM 초기 구성",
+        "시스템 이벤트·로그 기반 장애 구간 분석 및 Nutanix 기술지원과 협업 대응"
+      ],
+      "tasks": [
+        "Nutanix AHV 기반 고객사 가상화 인프라 구축 및 유지보수",
+        "데이터센터 현장에서 물리 서버 반입, Rack Mount, 전원·네트워크 케이블링 및 초기 연결 구성 수행",
+        "서버 설치 이후 가상화 클러스터 구성 및 VM 생성·초기 환경 설정 지원",
+        "CPU·Memory·Storage 등 가상화 자원 할당 및 상태 점검",
+        "고객사 운영환경의 서버·가상화 인프라 상태 모니터링 및 정기 점검",
+        "장애 발생 시 시스템 이벤트 및 로그를 기반으로 서버·VM·스토리지 등 문제 발생 구간 분석",
+        "자체 해결이 어려운 기술 이슈에 대해 Nutanix 기술지원과 로그 및 장애 상황을 공유하고 원인 분석·조치 수행",
+        "데이터센터 현장 작업을 통해 물리 서버부터 가상화·네트워크·스토리지까지 이어지는 인프라 구성 및 운영 경험 보유"
+      ],
+      "highlights": [],
+      "tech": ["Nutanix", "AHV", "Virtual Machine", "Linux", "Server"]
+    }
+  ],
+
+  "education": [
+    { "school": "학점은행제", "period": "2022.01 ~ 2024.08", "major": "컴퓨터공학" },
+    { "school": "경상대학교", "period": "2012.03 ~ 2016.03", "major": "미생물학" }
+  ],
+
+  "training": [
+    {
+      "org": "그린컴퓨터아카데미",
+      "course": "Springboot 기반 웹 개발과 Flutter 기반 앱개발 실무양성 심화과정",
+      "period": "2024.12.31 ~ 2025.03.07",
+      "desc": "Spring Boot 기반 서버 개발 및 Flutter를 활용한 모바일 앱 개발"
+    },
+    {
+      "org": "그린컴퓨터아카데미",
+      "course": "롯데 기업맞춤형 프로젝트 기반 백엔드 자바, 스프링 웹 SW개발자 양성과정",
+      "period": "2024.06 ~ 2024.12",
+      "desc": "Spring Boot 기반 Thymeleaf·React 웹서버 개발, 프로젝트 통합 구현 및 배포"
+    },
+    {
+      "org": "KG에듀원",
+      "course": "Private 클라우드 네트워크 서버 보안운영 관리",
+      "period": "2022.12 ~ 2023.06",
+      "desc": "Private 클라우드 운영 관리, 네트워크 보안 설계 및 구현"
+    }
+  ],
+
+  "skills": [
+    { "category": "Database", "items": ["SQL", "PostgreSQL", "MySQL", "MongoDB", "Redis"] },
+    { "category": "Backend", "items": ["Java", "Spring Boot", "Spring Security", "JPA", "QueryDSL", "MyBatis", "JWT", "OAuth 2.0", "WebSocket/STOMP"] },
+    { "category": "Data Pipeline", "items": ["Python", "Kafka", "Pandas", "Open API · XML Parsing", "WebClient · Jsoup (크롤링)", "GBIF", "Darwin Core"] },
+    { "category": "AI · ML", "items": ["YOLOv8", "Object Detection", "Roboflow (Labeling · Augmentation)"] },
+    { "category": "Frontend · App", "items": ["PySide6", "React", "Zustand", "React Query", "Thymeleaf", "JSP", "Flutter", "Dart", "Riverpod", "JavaScript"] },
+    { "category": "Infra · DevOps", "items": ["Linux", "Apache", "Tomcat", "Nginx", "AWS EC2", "GitHub Actions", "systemd", "Docker", "SFTP", "Nutanix AHV", "Git"] }
+  ],
+
+  "certifications": [
+    { "name": "정보처리기사", "issuer": "한국산업인력공단", "date": "2025.09.12" },
+    { "name": "RHCSA", "issuer": "Red Hat", "date": "2024.05.25" },
+    { "name": "리눅스마스터 2급", "issuer": "KAIT", "date": "2023.12.09" },
+    { "name": "네트워크관리사 2급", "issuer": "ICQA", "date": "2023.01.24" },
+    { "name": "SQLD", "issuer": "한국데이터산업진흥원", "date": "2022.12.02" },
+    { "name": "운전면허 2종 보통", "issuer": "부산지방경찰청", "date": "2022.05.19" }
+  ],
+
+  "awards": [
+    { "title": "국제과학관심포지엄 포스터 발표 (AI 생물 이미지 자동 동정 PoC, 제1저자)", "prize": "우수상", "org": "국립중앙과학관", "date": "2025.10.31" },
+    { "title": "팀프로젝트 경진대회 (Plantry · 롯데이커머스 등 롯데 측 현업 개발자 평가)", "prize": "최우수상 (1등)", "org": "그린컴퓨터아카데미 & 롯데", "date": "2024.12.28" }
+  ]
+}
