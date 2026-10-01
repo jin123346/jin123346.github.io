@@ -34,9 +34,9 @@
 
 <div align="center">
 
-| ⚡ **52.4s → 7.8s** | 📉 **−87%** | 🧬 **1,200+** |
+| ⚡ **40.33s → 4.07s** | 📉 **−97.9%** | 🧬 **1,200+** |
 | :---: | :---: | :---: |
-| OpenAPI 조회시간 단축<br><sub>PostgreSQL 실행계획 분석 · 약 85% 단축</sub> | Shared Buffer 접근량<br><sub>행 단위 함수 호출 약 660만 회 제거</sub> | BioFlow 실사용 입력 건수<br><sub>1인 개발 데이터 입력 자동화 도구</sub> |
+| OpenAPI 실제 응답시간<br><sub>PostgreSQL 실행계획 분석 · 운영 적용 · 약 90% 단축</sub> | Shared Buffer 접근량<br><sub>행 단위 함수 호출을 집합 처리로 전환</sub> | BioFlow 실사용 입력 건수<br><sub>1인 개발 데이터 입력 자동화 도구</sub> |
 
 </div>
 
@@ -49,7 +49,7 @@
 
 | | 프로젝트 | 한 줄 요약 |
 | :---: | --- | --- |
-| 🏛 실무 | [**OpenAPI 조회 쿼리 튜닝**](https://jin123346.github.io/project.html?id=openapi-tuning) | 행 단위 함수 호출을 집합 처리로 전환 — 52.4s → 7.8s |
+| 🏛 실무 | [**표본·관찰정보 OpenAPI 조회 성능 개선**](https://jin123346.github.io/project.html?id=openapi-tuning) | 행 단위 함수 호출을 집합 처리로 전환 — API 응답 40.33s → 4.07s, 운영 적용 |
 | 🏛 실무 | [**Error Page 적용 및 로그인 세션 장애 해결**](https://jin123346.github.io/project.html?id=ipt-auth) | Apache 리버스 프록시·Tomcat 오류 처리 구조 분석 |
 | 🏛 실무 | [**BioFlow**](https://jin123346.github.io/project.html?id=bioflow) | 생물 관찰·표본 데이터 입력 자동화 데스크톱 앱 |
 | 🏛 실무 | [**AI 생물 이미지 자동 동정 PoC**](https://jin123346.github.io/project.html?id=ai-species-id) | YOLOv8 객체 탐지 — mAP@0.5 96.4% |
