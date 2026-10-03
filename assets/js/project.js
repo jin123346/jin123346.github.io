@@ -98,16 +98,32 @@
     return h('figure', {}, el, media.caption && h('figcaption', {}, media.caption));
   }
 
-  /** { value, label } 은 수치 카드로, 문자열은 목록으로 */
+  /**
+   * { value, label } → 수치 카드
+   * { head: [...], rows: [[...]], caption } → 비교 표
+   * 문자열 → 목록
+   */
   function results(list) {
     const items = clean(list);
     const stats = items.filter((r) => typeof r === 'object' && !isEmpty(r.value));
-    const notes = items.map((r) => (typeof r === 'string' ? r : isEmpty(r.value) ? r.label : null)).filter(Boolean);
+    const tables = items.filter((r) => typeof r === 'object' && Array.isArray(r.rows));
+    const notes = items.map((r) => (typeof r === 'string' ? r : isEmpty(r.value) && !r.rows ? r.label : null)).filter(Boolean);
     return [
       stats.length ? h('div', { class: 'stats' }, stats.map((s) =>
         h('div', { class: 'stat' }, h('div', { class: 'value' }, s.value), h('div', { class: 'label' }, s.label)))) : null,
+      tables.map(dataTable),
       notes.length ? h('ul', {}, notes.map((n) => h('li', {}, n))) : null,
     ];
+  }
+
+  function dataTable(t) {
+    return h('div', { class: 'table-wrap' },
+      h('table', { class: 'data-table' },
+        t.caption && h('caption', {}, t.caption),
+        clean(t.head).length ? h('thead', {}, h('tr', {}, t.head.map((c) => h('th', { scope: 'col' }, c)))) : null,
+        h('tbody', {}, t.rows.map((row) => h('tr', {}, row.map((c, i) => (i === 0 ? h('th', { scope: 'row' }, c) : h('td', {}, c)))))),
+      ),
+    );
   }
 
   function gallery(images) {

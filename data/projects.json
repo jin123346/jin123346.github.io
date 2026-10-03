@@ -5,13 +5,13 @@
     "category": "work",
     "org": "국립중앙과학관",
     "resume": false,
-    "title": "NARIS 표본·관찰정보 OpenAPI 조회 성능 개선",
-    "subtitle": "행 단위 함수 호출을 집합 처리로 전환 — 관찰정보 실제 API 응답 40.33초 → 4.07초, 표본정보 52.4초 → 7.8초",
+    "title": "NARIS OpenAPI 조회 성능 개선 (표본·관찰·종정보)",
+    "subtitle": "행 단위 함수 호출을 집합 처리로 전환해 OpenAPI 3종 운영 적용 — 관찰정보 실제 응답 40.33초 → 4.07초",
     "period": "2026.09 ~ 2026.10 · 운영 적용",
     "team": "국립중앙과학관 NARIS 운영",
     "thumbnail": "assets/images/projects/openapi-tuning/cover.png",
     "tags": ["PostgreSQL", "SQL Tuning", "실행계획", "운영 적용"],
-    "problem": "약 50만 건 규모의 자연사 표본·관찰정보를 제공하는 OpenAPI가 조회에 수십 초씩 걸렸습니다. 관찰정보는 첫 호출에서 1분 넘게 기다리다 502(타임아웃)로 실패하는 일이 잦았고, 다시 호출해야 40초대에 응답이 돌아왔습니다.\n\n조회용 VIEW는 공통코드·기관·사업·공개기간·분류체계 정보를 가져오기 위해 사용자 정의 함수와 스칼라 서브쿼리를 여럿 사용하고 있었습니다. 실행계획을 보니 이 로직들이 대량 데이터의 한 행마다 반복 실행되는 Row-by-Row 구조가 주요 병목이었고, 표본정보의 경우 공통코드 함수는 각각 약 49만 회, 공개기간 판별 함수는 약 61만 회 호출되고 있었습니다.",
+    "problem": "약 50만 건 규모의 자연사 표본·관찰정보와 종정보를 제공하는 OpenAPI가 조회에 수십 초씩 걸렸습니다. 세 API 모두 첫 호출에서 1분 넘게 기다리다 502(타임아웃)로 실패하는 일이 잦았고, 다시 호출해야 관찰정보는 40초대, 표본정보는 1분이 넘어서야 응답이 돌아왔습니다.\n\n조회용 VIEW는 공통코드·기관·사업·공개기간·분류체계 정보를 가져오기 위해 사용자 정의 함수와 스칼라 서브쿼리를 여럿 사용하고 있었습니다. 실행계획을 보니 이 로직들이 대량 데이터의 한 행마다 반복 실행되는 Row-by-Row 구조가 주요 병목이었습니다. 표본정보는 공통코드 함수가 각각 약 49만 회, 공개기간 판별 함수가 약 61만 회 호출됐고, 종정보 목록은 종별 표본·관찰 건수를 세면서 공개기간 판별 함수를 약 132만 회 호출하고 있었습니다.",
     "role": [
       "EXPLAIN (ANALYZE, BUFFERS)로 표본·관찰정보 VIEW와 API Mapper 쿼리의 실행계획 분석",
       "행 단위(Row-by-Row) 병목 식별 및 집합 처리 방식으로 VIEW 재설계",
@@ -30,6 +30,8 @@
           "기관·사업 정보를 가져오던 스칼라 서브쿼리를 JOIN으로 변경",
           "공개기간 판별 함수를 기관 공개정보 테이블과의 JOIN 조건으로 재구성",
           "분류체계 조회 함수는 관련 테이블 JOIN과 컬럼 조합으로 대체",
+          "종정보 목록: 종별 표본·관찰 건수를 셀 때 행마다 부르던 공개기간 함수(약 132만 회)를, 공개 대상 기관을 먼저 추린 CTE와의 JOIN으로 전환 — 함수 조건 때문에 못 쓰던 기관코드 인덱스(Bitmap Index Scan)를 타고, 디스크 정렬 기반 집계가 메모리 HashAggregate로 바뀜",
+          "학명 저자 표시 함수는 CASE 식으로 대체",
           "CTE 내부 ORDER BY 제거 — 이후 Hash Join 단계에서 순서가 보장되지 않고 최종 정렬은 Mapper에서 수행하므로, 대량 정렬과 TEMP I/O만 발생시키던 불필요한 정렬을 없앰"
         ],
         "code": "-- 테이블·컬럼명은 일반화하고 구조만 남긴 예시입니다.\n\n-- 기존: 행마다 함수·스칼라 서브쿼리 실행\nSELECT o.id,\n       get_code_name('SEX', o.sex_cd)  AS sex_nm,   -- 같은 함수가 컬럼 8개에 반복\n       get_code_name('AGE', o.age_cd)  AS age_nm,\n       (SELECT org_nm FROM org WHERE org.cd = o.org_cd) AS org_nm,\n       (SELECT biz_nm FROM biz WHERE biz.id = o.biz_id) AS biz_nm\nFROM   observation o\nWHERE  is_open_period(o.org_cd) = 'Y'              -- 공개기간 판별도 행마다 호출\nORDER  BY o.id DESC;  -- JOIN 이후 순서 보장 안 됨, 최종 정렬은 Mapper에서 수행\n\n-- 개선: 공통코드는 한 번만 추출, 나머지는 JOIN으로 집합 처리\nWITH code AS (\n  SELECT group_id, code, code_nm FROM common_code\n  WHERE  group_id IN ('SEX', 'AGE', ...)\n)\nSELECT o.id, c_sex.code_nm AS sex_nm, c_age.code_nm AS age_nm,\n       org.org_nm, biz.biz_nm\nFROM   observation o\nJOIN   org_open_info p ON p.org_cd = o.org_cd AND p.publ_yn = 'Y'\n                      AND CURRENT_DATE BETWEEN p.open_begin AND p.open_end  -- NULL 처리 생략\nLEFT JOIN org           ON org.cd = o.org_cd\nLEFT JOIN biz           ON biz.id = o.biz_id\nLEFT JOIN code c_sex    ON c_sex.group_id = 'SEX' AND c_sex.code = o.sex_cd\nLEFT JOIN code c_age    ON c_age.group_id = 'AGE' AND c_age.code = o.age_cd;"
@@ -46,19 +48,26 @@
     ],
     "resultsTitle": "결과 (운영 적용)",
     "results": [
-      { "value": "40.33s → 4.07s", "label": "관찰정보 실제 OpenAPI 응답시간 — 약 89.9% 단축 (튜닝 전 첫 호출은 1.1분 대기 후 502 타임아웃)" },
-      { "value": "38.4s → 2.8s", "label": "관찰정보 DB 실행시간 — 약 92.7% 단축" },
-      { "value": "52.4s → 7.8s", "label": "표본정보 DB 실행시간 — 약 85% 단축" },
-      { "value": "−97.9%", "label": "관찰정보 Shared Buffer 접근 15.96M → 0.34M" },
-      { "value": "−87%", "label": "표본정보 Shared Buffer 접근 16.2M → 2.06M" },
-      { "value": "−80%", "label": "관찰정보 TEMP read/write 약 64K → 12.8K" },
+      { "value": "40.33s → 4.07s", "label": "관찰정보 실제 API 응답 — 약 90% 단축" },
+      { "value": "1.1min → 11.90s", "label": "표본정보 실제 API 응답 — 약 80% 이상 단축" },
+      { "value": "15.12s → 5.54s", "label": "종정보 실제 API 응답 — 약 63% 단축" },
+      {
+        "caption": "DB 실행계획 기준 비교 (EXPLAIN ANALYZE, BUFFERS)",
+        "head": ["API", "DB 실행시간", "Shared Buffer 접근", "비고"],
+        "rows": [
+          ["관찰정보", "38.4s → 2.8s (−92.7%)", "15.96M → 0.34M (−97.9%)", "TEMP I/O −80%"],
+          ["표본정보", "52.4s → 7.8s (−85%)", "16.2M → 2.06M (−87%)", "함수 호출 약 660만 회 제거"],
+          ["종정보", "10.8s → 1.07s (−90%)", "2.02M → 0.32M (−84%)", "함수 호출 약 137만 회 제거"]
+        ]
+      },
+      "튜닝 전에는 세 API 모두 첫 호출에서 1분 이상 대기 후 502(타임아웃)가 잦았으나, 튜닝 후 정상 응답",
       "튜닝 전후 COUNT 동일, 양방향 EXCEPT ALL 차이 0건 — 결과 정합성 확인 후 운영 적용",
-      "API Mapper 변경 없이 VIEW 교체만으로 적용해 애플리케이션 영향 최소화",
-      "표본정보 실제 API는 튜닝 후 11.84초로 정상 호출 확인 (튜닝 전 실측 자료 없음)"
+      "API Mapper 변경 없이 VIEW 교체만으로 적용해 애플리케이션 영향 최소화"
     ],
     "tech": ["PostgreSQL", "EXPLAIN (ANALYZE, BUFFERS)", "CTE", "JOIN", "VIEW", "EXCEPT ALL 정합성 검증", "MyBatis Mapper"],
     "images": [
-      { "src": "assets/images/projects/openapi-tuning/api-timing.png", "alt": "브라우저 개발자도구 Timing 패널 — 관찰정보 OpenAPI 튜닝 전 1차 호출 1.1분 후 502, 2차 호출 40.33초, 튜닝 후 4.07초", "caption": "관찰정보 OpenAPI 실제 응답 (브라우저 개발자도구 Timing) — 튜닝 전 1차 1.1분 후 502 → 2차 40.33s → 튜닝 후 4.07s. 막대 길이는 캡처마다 기준이 달라 숫자로 비교합니다." }
+      { "src": "assets/images/projects/openapi-tuning/api-timing.png", "alt": "브라우저 개발자도구 Timing 패널 — 관찰정보 OpenAPI 튜닝 전 1차 호출 1.1분 후 502, 2차 호출 40.33초, 튜닝 후 4.07초", "caption": "관찰정보 OpenAPI 실제 응답 (브라우저 개발자도구 Timing) — 튜닝 전 1차 1.1분 후 502 → 2차 40.33s → 튜닝 후 4.07s. 막대 길이는 캡처마다 기준이 달라 숫자로 비교합니다." },
+      { "src": "assets/images/projects/openapi-tuning/api-timing-sample.png", "alt": "브라우저 개발자도구 Timing 패널 — 표본정보 OpenAPI 튜닝 전 1차 호출 1.1분 후 502, 튜닝 후 11.90초", "caption": "표본정보 OpenAPI 실제 응답 (브라우저 개발자도구 Timing) — 튜닝 전 1차 1.1분 후 502 → 튜닝 후 11.90s" }
     ],
     "links": []
   },

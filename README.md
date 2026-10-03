@@ -49,7 +49,7 @@
 
 | | 프로젝트 | 한 줄 요약 |
 | :---: | --- | --- |
-| 🏛 실무 | [**표본·관찰정보 OpenAPI 조회 성능 개선**](https://jin123346.github.io/project.html?id=openapi-tuning) | 행 단위 함수 호출을 집합 처리로 전환 — API 응답 40.33s → 4.07s, 운영 적용 |
+| 🏛 실무 | [**OpenAPI 조회 성능 개선 (표본·관찰·종정보)**](https://jin123346.github.io/project.html?id=openapi-tuning) | 행 단위 함수 호출을 집합 처리로 전환 — 3종 운영 적용, API 응답 40.33s → 4.07s |
 | 🏛 실무 | [**Error Page 적용 및 로그인 세션 장애 해결**](https://jin123346.github.io/project.html?id=ipt-auth) | Apache 리버스 프록시·Tomcat 오류 처리 구조 분석 |
 | 🏛 실무 | [**BioFlow**](https://jin123346.github.io/project.html?id=bioflow) | 생물 관찰·표본 데이터 입력 자동화 데스크톱 앱 |
 | 🏛 실무 | [**AI 생물 이미지 자동 동정 PoC**](https://jin123346.github.io/project.html?id=ai-species-id) | YOLOv8 객체 탐지 — mAP@0.5 96.4% |
