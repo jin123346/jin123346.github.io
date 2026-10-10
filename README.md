@@ -36,7 +36,7 @@
 
 | ⚡ **40.33s → 4.07s** | 📉 **−97.9%** | 🧬 **1,200+** |
 | :---: | :---: | :---: |
-| OpenAPI 실제 응답시간<br><sub>PostgreSQL 실행계획 분석 · 운영 적용 · 약 90% 단축</sub> | Shared Buffer 접근량<br><sub>행 단위 함수 호출을 집합 처리로 전환</sub> | BioFlow 실사용 입력 건수<br><sub>1인 개발 데이터 입력 자동화 도구</sub> |
+| OpenAPI 실제 응답시간<br><sub>PostgreSQL 실행계획 분석 · 운영 적용 · 약 90% 단축</sub> | Shared Buffer 접근량<br><sub>행 단위 함수 호출을 집합 처리로 전환</sub> | BioFlow 실사용 입력 건수<br><sub>직접 기획·AI 활용 구현한 데이터 입력 자동화 도구</sub> |
 
 </div>
 
@@ -53,7 +53,7 @@
 | 🏛 실무 | [**Error Page 적용 및 로그인 세션 장애 해결**](https://jin123346.github.io/project.html?id=ipt-auth) | Apache 리버스 프록시·Tomcat 오류 처리 구조 분석 |
 | 🏛 실무 | [**BioFlow**](https://jin123346.github.io/project.html?id=bioflow) | 생물 관찰·표본 데이터 입력 자동화 데스크톱 앱 |
 | 🏛 실무 | [**AI 생물 이미지 자동 동정 PoC**](https://jin123346.github.io/project.html?id=ai-species-id) | YOLOv8 객체 탐지 — mAP@0.5 96.4% |
-| 🧪 개인 | [**Port Pulse**](https://jin123346.github.io/project.html?id=port-pulse) | 공공데이터 항만 입출항·관제 데이터 파이프라인 (진행 중) |
+| 🧪 개인 | [**Port Pulse**](https://jin123346.github.io/project.html?id=port-pulse) | 항만 입출항·관제 데이터 파이프라인 + KPI 대시보드 (Python · Spring Boot) |
 | 👥 팀 | [**Plantry**](https://jin123346.github.io/project.html?id=plantry) | 업무 협업 플랫폼 — SFTP 파일 서버·공유 드라이브 |
 | 👥 팀 | [**ApplusMarket**](https://jin123346.github.io/project.html?id=applusmarket) | 전자제품 중고거래 앱 — Kafka 비동기 크롤링, 무중단 배포 |
 | 👥 팀 | [**LotteOn 쇼핑몰**](https://jin123346.github.io/project.html?id=lotteon) | Spring Boot · Thymeleaf 이커머스 — 팀장, CI/CD |

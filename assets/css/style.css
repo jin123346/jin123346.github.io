@@ -178,6 +178,17 @@ main { padding: 56px 0 88px; min-height: 60vh; }
 .r-section > p { margin: 12px 0 0; }
 .r-section > ul { margin: 12px 0 0; padding-left: 20px; }
 .r-section > ul li + li { margin-top: 4px; }
+
+/* 본문 글의 "■ 소제목" + "- 목록" 구조 */
+.text-block { margin-top: 16px; }
+.text-block > p { margin: 0; }
+.text-block > p + p { margin-top: 6px; }
+.text-head { font-weight: 700; color: var(--text); }
+.text-head:not(:first-child) { margin-top: 0; }
+ul.text-list { margin: 6px 0 0; padding-left: 20px; }
+.text-list li + li { margin-top: 3px; }
+.text-list strong { font-weight: 700; color: var(--accent); }
+.hero .intro .text-block, .p-section .text-block { margin: 0 0 14px; }
 .strength-list b { font-weight: 700; }
 
 .part-career { scroll-margin-top: 76px; }
@@ -249,6 +260,10 @@ main { padding: 56px 0 88px; min-height: 60vh; }
 .data-table thead th { font-size: 13.5px; color: var(--muted); font-weight: 600; }
 .data-table tbody th { font-weight: 700; }
 .data-table tbody tr:last-child th, .data-table tbody tr:last-child td { border-bottom: 0; }
+/* 문장형 표(트러블슈팅 등)는 줄바꿈 허용 */
+.data-table.wrap { min-width: 640px; }
+.data-table.wrap th, .data-table.wrap td { white-space: normal; vertical-align: top; line-height: 1.55; }
+.block .table-wrap { margin-top: 14px; }
 
 .block + .block, ul + .block { margin-top: 28px; }
 .block h3 { font-size: 18px; margin: 0 0 8px; }
@@ -339,7 +354,9 @@ figure { margin: 0; }
   .r-table td { padding: 4px 0; }
 
   /* 항목이 페이지 경계에서 잘리지 않도록 */
-  .entry, .highlight, .skill-row, .r-table tr, li, .strength, .card, .stat, figure { break-inside: avoid; page-break-inside: avoid; }
+  .entry, .highlight, .skill-row, .r-table tr, li, .strength, .card, .stat, figure, .text-block { break-inside: avoid; page-break-inside: avoid; }
+  .text-block { margin-top: 8px; }
+  ul.text-list { margin-top: 2px; padding-left: 14px; }
   /* 경력기술서는 새 페이지에서 시작, 선택한 부분만 인쇄 */
   .part-career { break-before: page; page-break-before: always; margin-top: 0; padding-top: 0; border-top: 0; }
   body[data-print-part="resume"] .part-career { display: none; }

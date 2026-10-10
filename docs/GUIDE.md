@@ -61,6 +61,7 @@ jin123346.github.io/
   "category": "work",         // 메인 묶음: work(실무) · personal(개인) · team(팀). 없으면 "기타"
   "org": "국립중앙과학관",     // (work 일 때) 묶음 제목 "실무 · 국립중앙과학관"
   "resume": false,            // (선택) 이력서 프로젝트 목록에서 제외 — 경력 항목과 겹칠 때
+  "resumeBullets": ["…"],     // (선택) 이력서에 나갈 요약 문구. 없으면 role 앞 2줄을 사용
   "title": "BioFlow",
   "subtitle": "한 줄 설명",
   "period": "2025.08 ~ 2025.10",
@@ -86,6 +87,7 @@ jin123346.github.io/
 ```
 
 - 배열 순서가 화면 순서이고, 상세 페이지의 이전/다음 이동도 이 순서를 따릅니다.
+- 본문 글(`problem`, `intro`, `text` 등)에서 `■ 제목` 줄은 굵은 소제목, `- 항목` 줄은 들여쓴 목록이 됩니다. `- 상황: …`처럼 앞에 짧은 라벨을 쓰면 라벨이 굵게 표시됩니다.
 - 이미지는 `assets/images/projects/<id>/` 에 넣습니다. 썸네일은 16:9, 1MB 이하 권장.
 
 ### 비공개 정보 — `data/private.json`

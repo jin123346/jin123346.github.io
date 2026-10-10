@@ -79,7 +79,7 @@
     "resume": false,
     "title": "보안점검 대응 Error Page 적용 및 로그인 세션 장애 해결",
     "subtitle": "공통 오류페이지 적용 후 관리자 화면에서 로그인이 풀리던 문제를, 오류 처리 위치를 Apache 앞단에서 Tomcat 단으로 조정해 해결",
-    "period": "",
+    "period": "2026.04",
     "team": "국립중앙과학관 NARIS 운영 · 원인 분석부터 수정·검증까지 직접 수행",
     "thumbnail": "",
     "tags": ["Apache", "Tomcat", "Error Page", "세션 장애"],
@@ -123,15 +123,23 @@
     "org": "국립중앙과학관",
     "title": "BioFlow",
     "subtitle": "종정보 4.5만여 종 자동 매칭과 엑셀형 대량 입력으로 생물 관찰·표본 데이터 입력을 자동화한 데스크톱 앱",
-    "period": "",
-    "team": "1인 개발 (기획·설계·개발·배포)",
+    "period": "2026.05 ~ 2026.08",
+    "team": "1인 기획·개발 (AI 활용 구현)",
     "thumbnail": "assets/images/projects/bioflow/splash.png",
     "tags": ["Python", "PySide6", "Pandas", "PyInstaller"],
+    "resumeBullets": [
+      "종정보 4.5만여 종 마스터 데이터 기반 국명 → 학명·분류체계 완전일치 자동 매칭과 엑셀형 대량 입력 UI로 수기 엑셀 대조 업무를 자동화 — 실사용자가 관찰정보 1,200건 이상 입력·운영",
+      "이미지·동영상 EXIF 메타데이터 자동 추출과 규칙 기반 DB번호 파일 정리, 원본·가공본 경로 이력 보존으로 데이터 추적성 확보",
+      "1,000행 이상 표의 입력 지연을 리사이즈 정책 변경·700ms 디바운스·Qt 시그널 제어로 개선하고, 실행마다 쌓이던 캐시 결함(누적 500MB+)을 찾아 수정",
+      "프로그램 시작 시 종정보 자동 업데이트와 새 버전 알림, PyInstaller 단일 패키지 배포로 여러 사용자가 같은 기준 데이터로 작업"
+    ],
     "problem": "연구기관에서 생물 관찰정보·표본정보를 엑셀로 수기 입력하면서 국명↔학명 대조, 주소 정리, DB번호 부여, 이미지 파일 정리를 매번 수작업으로 처리하고 있었습니다.\n\n대조 과정에서 오기·누락이 생기기 쉬웠고, 이미지와 데이터 행이 어긋나거나 좌표·날짜 형식이 제각각이라 등록 전 검증에도 많은 시간이 들었습니다.",
     "role": [
-      "요구사항 정의부터 설계·개발·배포까지 1인 전담",
-      "실사용자 피드백을 받아 버그 재현·검증과 기능 개선 반복",
-      "Claude Code 기반 AI 협업 개발 — 요구사항 정의, 버그 재현·검증, 배포 파이프라인 구축을 AI와 함께 설계·검토"
+      "문제 파악 — 반복되던 데이터 처리 업무(국명·학명 엑셀 대조, 파일명 변경, 좌표 정리)와 사용자 불편사항을 직접 확인",
+      "요구사항 정의 — 엑셀 가공, 파일명 규칙, 좌표·날짜 처리, 종정보 매칭 기준 등 필요한 기능과 처리 규칙 결정",
+      "구현 — Claude Code 등 AI를 활용해 Python 코드를 작성하고, 실행·검토하며 수정",
+      "검증 — 실제 업무 데이터로 기능을 테스트하고 매칭·파일명·좌표 결과를 대조해 검증",
+      "개선 — 실사용자 피드백과 오류·누락 사례를 재현해 원인을 찾고 로직을 수정한 뒤 새 버전 배포"
     ],
     "solution": [
       {
@@ -252,80 +260,197 @@
     "featured": true,
     "category": "personal",
     "title": "Port Pulse",
-    "subtitle": "공공데이터 기반 항만 입출항·관제 데이터 파이프라인 및 분석 플랫폼",
-    "period": "2026.09 ~ 진행 중",
+    "subtitle": "해양수산부 선박 입출항 신고·VTS 관제 데이터를 수집해 항만별 일일 KPI와 이상징후를 보여주는 데이터 파이프라인 + 대시보드",
+    "period": "2026.09 ~ 2026.10",
     "team": "개인 프로젝트",
-    "thumbnail": "",
-    "tags": ["Python", "PostgreSQL", "ETL", "Docker"],
-    "problem": [
-      {
-        "text": "해양수산부 등이 제공하는 항만 선박 입출항·관제 공공 API는 같은 선박 정보가 반복 조회되고, 한 선박의 입항·출항·이안 등 여러 이벤트가 중첩되어 제공됩니다. API 응답을 그대로 저장하면 중복과 변경을 구분할 수 없고, 수집이 실패해도 어디서 멈췄는지 알 수 없습니다.\n\n그래서 단순 조회·시각화가 아니라, 다음 데이터 엔지니어링 문제를 직접 풀면서 재수집 가능한 파이프라인과 분석 가능한 데이터 모델을 만드는 것을 목표로 삼았습니다.",
-        "items": [
-          "어떤 데이터를 동일한 레코드로 판단할 것인가",
-          "반복 수집된 데이터의 변경을 어떻게 감지할 것인가",
-          "원본 데이터를 어떻게 보존할 것인가",
-          "여러 데이터 소스를 어떤 기준으로 연결할 것인가",
-          "실패한 수집 작업을 어떻게 추적할 것인가"
-        ]
-      }
+    "thumbnail": "assets/images/projects/port-pulse/dashboard.webp",
+    "tags": ["Python", "PostgreSQL", "Spring Boot", "Airflow", "Data Pipeline"],
+    "resumeBullets": [
+      "해양수산부 선박 입출항·VTS 관제 API를 수집해 raw → fact → mart 3계층으로 설계하고, UPSERT 기반 멱등 적재와 실행 이력·재개 기능 구현, Airflow DAG로 6시간 간격 정기 수집 운영",
+      "공통 키가 없는 신고와 관제를 6단계 규칙으로 1:1 매칭해 매칭률 77.1% → 96.2%로 개선, 중복 신고 판정과 항만별 일일 KPI·28일 z-score 이상징후 산출",
+      "Spring Boot(Java 21)로 KPI·선박 이력·관제 타임라인 조회 API와 파이프라인 실행 API 구현, 범위 조건·복합 인덱스·LATERAL 조인으로 조회 설계",
+      "적재 후 매칭률·레이어 간 건수 일치·누락일을 점검하는 품질 모니터링을 파이프라인과 대시보드에 포함"
     ],
+    "problem": "입출항 신고와 VTS 관제 기록은 출처가 다르고, 중복 신고·누락·시각 불일치가 섞여 있어 그대로는 \"오늘 부산항에 몇 척이 들어왔나\"조차 믿기 어렵습니다.\n\n원본을 보존하는 raw → 정합성을 맞춘 fact → 집계된 mart로 레이어를 나누고, 신고와 관제를 매칭해 대표 입출항 시각을 정하는 방식으로 풀었습니다.",
     "role": [
-      "수집 → 원본 보존 → 변경 감지 → 이력 관리 → 데이터 모델링까지 전 과정 설계·구현",
-      "PostgreSQL 스키마를 역할별(raw / audit / master)로 분리 설계",
-      "실제 수집 데이터의 중복 패턴을 분석해 Unique Key와 이벤트 식별 기준 설계",
-      "데이터 수집·정제는 Python, 이후 API 서버는 Java·Spring Boot로 구성 예정"
+      "개인 프로젝트 — 데이터 모델링, Python 수집·적재 파이프라인, Spring Boot 백엔드, 대시보드를 직접 설계·구현",
+      "수집은 멱등하게(같은 기간을 다시 돌려도 중복 없이), 집계는 매번 전체 재계산하도록 설계"
     ],
     "solution": [
       {
-        "title": "책임을 분리한 파이프라인 구조",
-        "text": "Collector는 API 호출과 XML 파싱만, Loader는 PostgreSQL 저장·Upsert·변경 감지만 맡고, Service Layer가 페이지 처리, run_id 관리, 실패 처리 등 실행 흐름을 제어합니다.",
-        "code": "Public Open API  (선박 입출항 · 선박 관제)\n   ↓\nCollectors      API 호출 / XML Parsing\n   ↓\nService Layer   Pagination / Retry / Run 관리\n   ↓\nLoaders         Upsert / 변경 감지 / 저장\n   ↓\nPostgreSQL      raw(원본 보존) · audit(실행 추적) · master(기준정보)\n   ↓\nTransformation → Fact / Dimension → Analytics → Dashboard   (예정)"
+        "title": "수집은 Python, 조회와 실행 요청은 Spring Boot",
+        "text": "Python이 수집·매칭·적재를, Spring Boot가 조회와 수집 실행 요청을 맡고, 실행 상태는 모두 audit.pipeline_run 한 곳에 기록합니다. 정기 실행은 Airflow가 맡고, 실행 경로가 늘어나도 Java 쪽 구조는 바뀌지 않도록 나눴습니다.",
+        "image": { "src": "assets/images/projects/port-pulse/architecture.png", "alt": "아키텍처 — 해양수산부 공공 API, Python 파이프라인, PostgreSQL raw·fact·mart, Spring Boot API, 대시보드", "caption": "아키텍처 — 수집에서 대시보드까지" },
+        "table": {
+          "wrap": true,
+          "head": ["레이어", "테이블", "역할"],
+          "rows": [
+            ["raw", "raw.mof_ship_call, raw.mof_control_event 등", "API 응답 원본 보존"],
+            ["fact", "fact.fact_ship_call, fact.fact_control_event", "신고 1건 = 1행. 관제 매칭·대표 시각·중복 표시, ship_call_raw_id 기준 UPSERT"],
+            ["mart", "mart.port_daily_kpi", "항만 × 날짜 1행 KPI, 매번 전체 재계산"],
+            ["audit", "audit.pipeline_run, audit.api_request", "실행 이력·상태·API 요청 기록"]
+          ]
+        }
       },
       {
-        "title": "역할별 스키마 분리",
+        "title": "핵심 과제 — 공통 키가 없는 신고와 관제를 1:1로 매칭",
+        "text": "신고와 관제는 같은 배의 같은 입항을 서로 다른 시스템이 기록한 것이라 공통 키가 없습니다. 그래서 호출부호·입항횟수·항만·시각을 단서로, 확실한 조건부터 차례로 맞춰보는 방식을 택했습니다.\n\n바로 맞지 않는 이유는 다섯 가지였습니다.",
         "items": [
-          "raw — API 응답을 원형에 가깝게 보존하고 원본을 JSONB로 함께 저장해, 파싱 로직이 바뀌어도 원본 기준으로 재처리 가능",
-          "raw — 하나의 Ship Call 안에 여러 Detail이 있는 구조를 부모-자식 모델(mof_ship_call / mof_ship_call_detail)로 저장",
-          "audit — 실행마다 run_id를 부여하고 RUNNING / SUCCESS / FAILED / CANCELLED 상태와 API 요청 단위 이력을 기록해 실패 지점 추적",
-          "master — 외부 API 항만 코드와 내부 표준 항만 ID를 분리하고 Bridge Table로 연결"
+          "시각이 다르다 — 신고는 신고·예정 시각, 관제는 실제 통과 시각이라 같은 입항도 수 시간씩 벌어짐",
+          "입항횟수가 어긋난다 — 신고 쪽과 관제 쪽 입항횟수가 일치하지 않는 경우가 있음",
+          "항만 단위가 다르다 — 관제는 VTS 구역 단위라 신고의 항만 코드와 1:1로 대응하지 않음",
+          "관제가 없는 게 정상인 배가 있다 — 선종에 따라 애초에 관제 대상이 아닌 선박이 있음",
+          "같은 입항이 여러 번 신고된다 — 중복 신고가 관제 1건을 두고 경쟁하면 엉뚱한 신고에 붙음"
         ]
       },
       {
-        "title": "대량 수집과 장애 대응",
+        "title": "매칭 규칙 — 확실한 것부터, 한 번만",
         "items": [
-          "API totalCount로 전체 페이지 수를 계산해 모든 페이지를 순차 수집",
-          "특정 페이지에서 발생하던 Timeout에 Timeout·Retry를 적용해 일시적 네트워크 오류로 전체 파이프라인이 멈추지 않도록 개선",
-          "Ctrl+C 중단 시 KeyboardInterrupt를 처리해 실행 상태가 RUNNING으로 남지 않고 CANCELLED로 기록되도록 구현 — 정상 종료·오류·사용자 중단을 구분"
+          "엄격한 1등급부터 느슨한 6등급까지 차례로 시도하고, 이미 쓴 관제는 다음 단계에서 빼서 관제 1건이 신고 1건에만 붙게(1:1) 함",
+          "몇 등급으로 맞았는지 control_match_priority에 저장해, 느슨한 조건으로 맞은 건만 따로 검증 가능",
+          "선종 기준표로 control_expected를 두고, 매칭률의 분모를 관제 대상 선박으로만 잡음"
+        ],
+        "table": {
+          "wrap": true,
+          "head": ["등급", "조건", "다루는 경우"],
+          "rows": [
+            ["1", "입항횟수 일치 + 6시간 이내", "가장 확실한 경우"],
+            ["2", "같은 항구 + 입항 시각 완전 일치", "입항횟수가 없어도 시각으로 확실한 경우"],
+            ["3", "같은 권역 + 입항 시각 완전 일치", "항구 이름은 다르지만 같은 권역 — 신고 위치(항만 코드)만 다른 경우"],
+            ["4", "입항횟수 다름 + 입항 시각 완전 일치", "입항횟수 값만 어긋난 경우"],
+            ["5", "입항횟수 일치 + 6시간 초과 (출항 후 관제 제외)", "같은 입항이지만 신고와 실제 시각 차이가 큰 경우"],
+            ["6", "같은 권역 + ±60분 근사", "마지막 근사 매칭"]
+          ]
+        }
+      },
+      {
+        "title": "등급별 누적 매칭률 — 규칙 하나가 얼마나 기여했나",
+        "text": "관제 대상 입항 85,169건을 기준으로, 저장된 매칭 등급을 1등급부터 누적해 규칙을 하나씩 더할 때 매칭률이 얼마나 오르는지 다시 계산했습니다.",
+        "table": {
+          "head": ["적용 범위", "추가 매칭", "누적 매칭률"],
+          "rows": [
+            ["1등급만", "65,681", "77.1%"],
+            ["~ 2등급", "+15,005", "94.7%"],
+            ["~ 3등급", "+56", "94.8%"],
+            ["~ 4등급", "+29", "94.8%"],
+            ["~ 5등급", "+1,076", "96.1%"],
+            ["~ 6등급", "+98", "96.2%"],
+            ["미매칭", "3,224", "—"]
+          ]
+        },
+        "items": [
+          "엄격한 규칙(1등급)만 쓰면 관제 대상의 22.9%를 놓침",
+          "가장 큰 효과는 2등급(같은 항구 + 시각) — 입항횟수 없이 1.5만 건(+17.6%p)을 더 매칭",
+          "3·4등급은 합쳐 85건(+0.1%p)으로 드문 경우만 처리. 느슨한 규칙일수록 오매칭 위험이 있어 기여 대비 유지 여부를 검토할 대상",
+          "최종 매칭률 96.2%, 남은 미매칭 3,224건(3.8%)은 모니터링 API에서 추적"
         ]
       },
       {
-        "title": "Upsert와 Batch 내부 중복 문제",
-        "text": "같은 기간을 다시 조회하면 기존 데이터가 반복 수집되므로 PostgreSQL ON CONFLICT로 신규는 INSERT, 기존은 UPDATE하도록 구성했습니다. 대량 저장 중 다음 오류가 발생했습니다.",
-        "code": "CardinalityViolation\nON CONFLICT DO UPDATE command cannot affect row a second time",
+        "title": "중복 신고 판정 — 같은 배는 동시에 두 곳에 머물 수 없다",
         "items": [
-          "원인: 한 Batch 안에 같은 Unique Key를 가진 데이터가 여러 번 존재",
-          "해결: 저장 전 Key 기반 중복 검사를 추가하고, 실제 API 데이터 특성을 기준으로 Unique Key 재설계"
+          "같은 호출부호 + 입항 시각 60분 이내 + 머문 기간이 겹치는 신고를 중복 의심 그룹으로 묶음. 같은 배가 동시에 두 곳에 머물 수 없으므로 항구는 보지 않음",
+          "앞선 신고의 출항이 뒤 신고의 입항보다 이르면 연속 입항으로 보고 중복에서 제외 (예: 12:20 입항 → 12:47 출항 → 13:20 재입항)",
+          "출항 시각은 신고의 출항을 쓰고, 없으면 매칭된 관제의 출항을 사용. 출항 정보가 없으면 기간이 겹치는 것으로 간주",
+          "그룹 안 대표는 관제 매칭 등급이 높은 순 → raw_id가 큰 순으로 1건을 고르고, 집계에는 대표만 사용"
         ]
       },
       {
-        "title": "변경 감지와 이력 관리",
-        "text": "기존 Raw 데이터와 새로 수집한 raw_payload를 비교해 실제로 바뀐 경우에만 Update하고, 변경 전 데이터를 History 영역에 남겨 API 데이터가 시간에 따라 어떻게 바뀌는지 추적하는 구조로 확장하고 있습니다."
+        "title": "대표 시각 — 확정 신고 → 관제 실측 → 확정 전 신고",
+        "text": "어느 값을 썼는지는 arrival_source / departure_source에 남깁니다. 순서를 이렇게 정한 이유는 다음과 같습니다.",
+        "items": [
+          "1순위 확정 신고 — 항만당국이 확정한 공식 기록입니다. KPI의 입출항 건수도 같은 신고 데이터에서 나오므로, 시각까지 같은 출처를 써야 통계와 화면이 어긋나지 않습니다. 모든 선박에 있는 값이라 \"입항 시각\"의 정의가 배마다 달라지지도 않습니다.",
+          "2순위 관제 실측 — 실제 관측 시각이라 예정값보다 정확하고, 확정 신고가 아직 들어오지 않은 최근 며칠의 빈자리를 채우는 데 가장 믿을 만합니다. 다만 VTS 관제 구역 경계를 지난 시각이라 접안·항내 입항 시각과 정의가 다를 수 있고, 관제 대상 선박에만 있으며, 5~6등급처럼 느슨하게 매칭된 경우 다른 입항의 시각이 섞일 위험이 있어 1순위로 두지 않았습니다.",
+          "3순위 확정 전 신고 — 나중에 바뀔 수 있는 예정 시각이라, 다른 값이 하나도 없을 때 칸을 비워 두지 않기 위한 마지막 대안입니다."
+        ]
       },
       {
-        "title": "\"무엇을 동일한 데이터로 볼 것인가\"",
-        "text": "가장 많은 시간을 쓰고 있는 부분입니다. 한 선박이 같은 입항 차수에서 입항 → 이안 → 이동 → 출항 등 여러 관제 이벤트를 만들기 때문에, '항만 + 호출부호 + 입항년도 + 입항횟수'만으로 키를 잡으면 서로 다른 이벤트가 하나로 합쳐집니다. 실제 데이터를 수집해 중복 패턴을 분석하면서 Ship Call과 Control Event를 분리하고 이벤트 단위 식별 기준을 설계하고 있습니다."
+        "title": "규칙은 미매칭 데이터에서 하나씩 찾았습니다",
+        "text": "규칙은 처음부터 정해진 게 아니라, 매칭되지 않은 건을 모아 원인을 찾고 하나씩 추가했습니다. fact 테이블은 setup 스크립트를 버전별로 관리하며 다음 순서로 규칙을 더했습니다.",
+        "items": [
+          "v5 관제 대상 구분 — 선종 기준표로 관제가 없는 게 정상인 선박을 분리해 매칭률의 분모를 바로잡음",
+          "v8 중복 판정 — 같은 입항의 중복 신고가 관제 1건을 두고 경쟁하지 않도록 대표 신고만 남김",
+          "v9 대표 시각 — 출처 우선순위로 입출항 시각을 하나로 정하고 출처를 기록",
+          "v10 총톤수 확인 — 같은 선박·같은 입항의 신고인지 확신하기 어려운 경우를 위해, 기존 조회 조건에 총톤수 일치 확인을 추가"
+        ],
+        "image": { "src": "assets/images/projects/port-pulse/ship-timeline.png", "alt": "선박 관제 타임라인과 과거 입출항 이력 화면", "caption": "매칭 결과 — 관제 타임라인(입항 → 출항, 구간별 소요시간)과 같은 호출부호의 과거 입출항 이력" }
+      },
+      {
+        "title": "KPI·이상징후와 품질 검증",
+        "items": [
+          "직전 7일 평균 대비 증감률, 364일 전(같은 요일) 전년 동기 비교, 직전 28일 z-score |z| ≥ 3이면 이상징후",
+          "물동량이 적은 항만은 판정에서 제외, 수집 중인 오늘은 is_complete_day = false로 제외, 공휴일은 표시만 하고 판정에 반영하지 않음",
+          "적재 후 관제 매칭률·raw ↔ fact 관제 이벤트 건수·fact ↔ mart 입항 합계·mart 누락일을 모니터링 SQL로 한 번에 점검하고 결과를 실행 리포트(JSON)에 기록",
+          "모든 실행을 RUNNING → SUCCESS / PARTIAL_SUCCESS / FAILED / CANCELLED로 기록, --run-id로 실패한 실행을 같은 조건으로 재개, trigger_source로 대시보드·터미널·스케줄 실행 구분"
+        ],
+        "image": { "src": "assets/images/projects/port-pulse/data-quality.webp", "alt": "데이터 품질 모니터링 — 입출항 신고 건수, 관제 매칭률, 레이어 간 건수 일치, 누락일, 이상징후", "caption": "데이터 품질 모니터링 — 관제 매칭률, raw → fact → mart 건수 일치, mart 누락일" }
+      },
+      {
+        "title": "Spring Boot 백엔드",
+        "text": "Java 21 · Spring Boot 4.1. 읽기 전용 조회는 JdbcClient + record DTO로 SQL을 직접 쓰고, 도메인별 패키지(dashboard, shipcall, pipeline, monitoring, common)로 나눴습니다.",
+        "table": {
+          "head": ["API", "설명"],
+          "rows": [
+            ["GET /api/kpi/daily?date=", "항만별 일별 KPI (날짜가 없으면 가장 최근 완료일)"],
+            ["GET /api/kpi/{portCode}/daily?date=", "항만 1곳의 KPI + 그날 입항·출항 선박 목록"],
+            ["GET /api/ships/{clsgn}/calls", "선박의 과거 입출항 이력"],
+            ["GET /api/ship-calls/{id}/events", "항차별 관제 이벤트 타임라인"],
+            ["POST /api/pipeline/runs", "Python 수집 파이프라인 비동기 실행 (202)"],
+            ["GET /api/pipeline/runs", "실행 이력 (수집 대상 기간 기준 조회)"],
+            ["GET /api/monitoring/summary", "데이터 품질 요약 + 경고"]
+          ]
+        },
+        "items": [
+          "조회는 DTO, 수정은 Entity — mart·fact는 Python이 재계산하는 읽기 전용 테이블이라 JPA Entity 대신 record로 바로 받음",
+          "인덱스를 타는 조건 — arrival_dt::date = ? 대신 그날 0시 이상 다음날 0시 미만 범위로 작성해 (port_code, arrival_dt) 인덱스 사용",
+          "mart와 같은 기준 — 선박 목록에도 중복 신고 제외 규칙을 적용해 KPI 입항 수와 목록 건수가 일치하는지 화면에서 검증",
+          "파이프라인 실행 — ProcessBuilder에 인자를 리스트로 넘겨 셸 해석을 막고 enum·형식 검증, 중복 실행은 메모리(AtomicBoolean)와 DB(RUNNING 상태) 두 겹으로 차단",
+          "품질 SQL 단일 관리 — 모니터링 SQL을 Python과 같은 파일로 Java가 읽어 실행해 두 곳의 기준이 갈라지지 않음",
+          "에러 응답 통일 — @RestControllerAdvice로 400 / 404 / 409(중복 실행) / 500으로 나누고, 500은 내부 정보를 숨기고 로그에만 기록"
+        ],
+        "image": { "src": "assets/images/projects/port-pulse/api-endpoints.png", "alt": "Swagger API 목록 — pipeline, ship-call, monitoring, dashboard 컨트롤러", "caption": "API 문서 (Swagger) — 도메인별 컨트롤러" }
+      },
+      {
+        "title": "Airflow 정기 수집",
+        "text": "Airflow DAG(port_pulse_daily)가 하루 4회, 6시간 간격으로 같은 Python 파이프라인을 실행합니다. 매번 직전 기간을 겹쳐서 다시 수집하지만, UPSERT 기반 멱등 적재라 중복 없이 늦게 확정된 신고만 반영됩니다.",
+        "items": [
+          "스케줄 실행도 대시보드·터미널 실행과 같은 audit.pipeline_run에 기록되고, trigger_source로 실행 경로를 구분",
+          "DAG 동시 실행을 1개로 제한해 수집 시간이 길어져도 다음 실행과 겹치지 않음",
+          "실행 1회 약 1분 40초 ~ 2분 30초"
+        ],
+        "image": { "src": "assets/images/projects/port-pulse/airflow-runs.webp", "alt": "Airflow port_pulse_daily DAG 실행 목록 — 6시간 간격 예정 실행 4회 모두 성공", "caption": "Airflow DAG 실행 이력 — 6시간 간격 예정 실행, 모두 성공" }
+      },
+      {
+        "title": "트러블슈팅",
+        "table": {
+          "wrap": true,
+          "head": ["문제", "원인", "해결"],
+          "rows": [
+            ["다음 입항이 대부분 NULL로 나와 출항 누락 항차를 판단할 수 없음", "LEAD()는 WHERE로 걸러진 행 안에서만 다음 행을 찾아, 다른 항만에 입항한 기록을 보지 못함", "LEFT JOIN LATERAL … LIMIT 1로 같은 선박의 다음 입항을 전체에서 찾고 (clsgn, arrival_dt) 인덱스 추가 → \"출항 미확인\" 항차를 구분"],
+            ["수집은 성공했는데 실행 이력이 FAILED로 기록됨", "성공 기록 이후의 리포트 저장 단계에서 난 예외를 공통 예외 처리가 잡아, 이미 기록된 SUCCESS를 FAILED로 덮어씀", "호출 인자 오류를 고치고, 상태 기록 이후 단계의 실패가 실행 결과를 바꾸지 않도록 흐름 정리"],
+            ["7일 평균(_7d) 컬럼만 DTO에 값이 비어 있음", "자동 camelCase 변환이 숫자로 끝나는 이름을 다르게 바꿔(arrivalsAvg7d → arrivals_avg7d) 컬럼을 찾지 못함", "SQL 별칭으로 이름을 맞춤. 공유 SQL 파일은 그대로 두고 Java에서 한 겹 감싸 별칭 부여"]
+          ]
+        }
       }
     ],
-    "resultsTitle": "현재 진행 상황",
+    "resultsTitle": "결과 · 데이터 품질 지표",
     "results": [
-      { "value": "2,000건+", "label": "부산항 입항 데이터 다중 페이지 수집 테스트" },
-      "구현: DB·스키마(raw/audit/master) 설계, 입출항·관제 Collector/Loader, XML Parser, Pagination·Timeout·Retry, Upsert·중복 처리, Pipeline Run·API Request 이력 관리, 관제 이벤트 Unique Key 검증",
-      "다음 단계: Control Event 모델 확정 → Ship Call↔Control Event 연결 → Fact/Dimension 모델 → AIS 데이터 결합 → 항만 KPI → Spring Boot API → Dashboard",
-      "목표 지표: 일별 입출항 수, 항만별 체류시간, 선석 점유 현황, 시간대·요일별 혼잡 패턴, 선박 종류별 비율, 전년 동기간 대비 변화 등"
+      { "value": "88,427건", "label": "입출항 신고 적재 — 중복 신고 79건 판정" },
+      { "value": "77.1% → 96.2%", "label": "신고 ↔ 관제 매칭률 — 1등급만 적용 대비 6단계 규칙 누적 (관제 대상 입항 85,169건 기준)" },
+      { "value": "341,198 = 341,198", "label": "관제 이벤트 raw → fact 건수 일치" },
+      { "value": "88,348 = 88,348", "label": "입항 합계 fact → mart 일치, mart 누락일 0" },
+      "33개 항만 일일 KPI·이상징후 대시보드와 선박 히스토리, 파이프라인 실행·재개, 품질 모니터링까지 구현하고 Airflow로 6시간 간격 정기 수집 운영 중",
+      "배운 점 — 출항 기록이 없는 배를 \"정박 중\"으로 보여주다 다음 항만 입항 기록과의 모순을 발견해 \"출항 미확인\" 상태를 따로 둠. 집계와 목록은 같은 기준이어야 숫자가 맞고, 범위 조건·복합 인덱스·LATERAL 같은 SQL 선택이 조회 성능을 좌우함",
+      "향후 — DB 플래그 기반 협조적 취소, 출항 누락 건수 모니터링 지표, 인덱스 적용 전후 EXPLAIN ANALYZE 기록, Controller·Repository 테스트 코드"
     ],
-    "tech": ["Python", "PostgreSQL 16", "JSONB", "Docker Compose", "Open API · XML Parsing", "ETL/ELT", "Upsert (ON CONFLICT)", "Change Data Detection", "Dimensional Modeling", "Java · Spring Boot (예정)"],
-    "images": [],
-    "links": []
+    "tech": ["Python", "PostgreSQL 16", "Docker Compose", "Java 21", "Spring Boot 4.1", "JdbcClient", "Apache Airflow", "Open API · XML", "HTML/JS"],
+    "images": [
+      { "src": "assets/images/projects/port-pulse/port-kpi.webp", "alt": "항만별 KPI 표 — 입항, 출항, 7일 대비, 전년 동기, 상태", "caption": "항만별 KPI 33개 — 7일 대비·전년 동기 증감, 열 정렬·검색" },
+      { "src": "assets/images/projects/port-pulse/port-detail.webp", "alt": "항만 상세 화면 — 인천항 입항 선박 목록과 체류 상태", "caption": "항만 상세 — 그날 입항·출항 선박 목록, KPI 수와 목록 건수 일치, 체류 상태(완료·예정·경과·출항 미확인)" },
+      { "src": "assets/images/projects/port-pulse/run-history.png", "alt": "대시보드 최근 실행 이력 — 스케줄·터미널 실행 구분과 수집 기간", "caption": "대시보드 실행 이력 — 스케줄(Airflow)·터미널 실행이 같은 이력에 기록" }
+    ],
+    "links": [
+      { "label": "GitHub", "url": "https://github.com/jin123346/PortPulse" }
+    ]
   },
   {
     "id": "plantry",
@@ -337,6 +462,12 @@
     "team": "5명 (풀스택)",
     "thumbnail": "assets/images/projects/plantry/cover.png",
     "tags": ["Spring Boot", "React", "SFTP", "최우수상"],
+    "resumeBullets": [
+      "로드밸런싱 환경에서 요청이 간 서버에 따라 파일 다운로드가 실패하던 문제를, 파일 서버를 분리하고 단일 SFTP 사용자 + 경로 기반 접근 제한(chroot)으로 해결",
+      "JSch 기반 SFTP 업로드·다운로드, 사용자별 저장공간·폴더 단위 권한, 토큰 기반 공유 링크 구현",
+      "트리 구조 폴더를 휴지통에서 복구할 때의 경로 충돌을 UUID 부여와 MongoDB 복구 이력(restore_history)으로 해결",
+      "팀프로젝트 경진대회 최우수상 (롯데이커머스 등 롯데 측 현업 개발자 평가)"
+    ],
     "problem": "개인은 무료로, 기업은 유료 결제 후 회사 코드로 직원을 초대해 사내 전용 협업 공간(프로젝트, 일정, 게시판, 채팅, 공유 드라이브)을 쓰는 플랫폼을 React + Spring Boot REST API로 구축했습니다.\n\n백엔드 서버가 두 대로 분리된 로드밸런싱 환경에서, 파일 업로드 요청이 어느 서버로 가느냐에 따라 다운로드가 실패하는 문제가 있었습니다. 또 트리 구조 폴더를 휴지통에서 복구할 때 상위 폴더가 먼저 삭제된 경우 경로 충돌이 생길 수 있었습니다.",
     "role": [
       "파일 서버 구축 — EC2에 SFTP 사용자 구성, JSch로 Java 애플리케이션에서 SFTP 업로드/다운로드 구현",
@@ -400,6 +531,11 @@
     "team": "3명 (풀스택) · 팀 리더",
     "thumbnail": "assets/images/projects/applusmarket/cover.png",
     "tags": ["Spring Boot", "Flutter", "Kafka", "MongoDB"],
+    "resumeBullets": [
+      "팀 리더 — API 설계 기준·코드 컨벤션 수립, 공통 ResponseDTO / ErrorCode와 전역 예외 처리 구조 확립",
+      "Kafka 비동기 크롤링 + MongoDB bulkWrite Upsert + Redis 상태 관리로 제품 검색 응답 5~10초 → 2초 미만, 불필요한 DB 요청 40% 감소",
+      "Nginx Blue-Green 무중단 배포 구축 — systemd 두 포트 운영, 헬스체크 후 트래픽 전환·실패 시 롤백, GitHub Actions로 빌드·배포 자동화"
+    ],
     "problem": "일반 중고마켓은 판매자가 제품 스펙을 직접 입력해야 해서 등록이 번거롭고, 입력 오류·누락이 잦아 구매자가 정보를 따로 찾아봐야 했습니다. 전자제품은 모델명·사양이 중요하기 때문에 정확한 정보 제공이 차별화 포인트라고 판단했습니다.\n\n그런데 검색 시마다 제조사 사이트를 동기 방식으로 크롤링하면 응답이 5~10초씩 걸리고, 크롤링 중에도 DB 조회가 반복되어 서버 부하가 컸습니다. 배포 역시 kill -9 후 재시작 방식이라 진행 중인 API 요청이 끊기는 문제가 있었습니다.",
     "role": [
       "팀 리더 — API 설계 기준, 코드 컨벤션, 일정과 개발 프로세스 조율",
@@ -474,6 +610,11 @@
     "team": "5명 (풀스택) · 팀장",
     "thumbnail": "assets/images/projects/lotteon/cover.png",
     "tags": ["Spring Boot", "JPA", "Thymeleaf", "Redis"],
+    "resumeBullets": [
+      "팀장 — 일정·업무 조율, GitHub 기반 협업·코드 리뷰 프로세스 정착, 과정 내 팀 프로젝트 평가 1위 (5개 팀 중)",
+      "상품 CRUD·옵션·장바구니·주문 상태 관리, Spring Security 기반 관리자·판매자·구매자 권한 분리, Kakao·Naver·Google OAuth 로그인",
+      "Redis 카테고리 캐시 소실에 재적재 로직·계층 분리 캐싱·모니터링으로 대응하고, GitHub Actions CI/CD로 AWS EC2 자동 배포"
+    ],
     "problem": "판매자와 구매자가 상품을 거래할 수 있도록 상품 등록부터 주문·결제, 판매자/최고관리자 기능, 고객 문의와 게시판까지 실제 이커머스의 주요 기능을 5주 안에 구현해야 했습니다.\n\n운영 중에는 계층형 카테고리의 Redis 캐시가 예기치 않게 소실되면서 모든 요청이 DB로 몰려 부하와 응답 지연이 발생했습니다.",
     "role": [
       "팀장 — 일정 관리, 업무 조율, GitHub 기반 협업 프로세스 구축, 코드 리뷰 문화 정착",

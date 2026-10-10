@@ -144,7 +144,9 @@
   function project(p) {
     const sub = [p.subtitle, p.team].filter((v) => !isEmpty(v)).join(' · ');
     const title = h('a', { href: App.projectUrl(p.id) }, p.title);
-    return entry(p.period, title, sub, list(clean(p.role).slice(0, 2)), techLine(p.tech));
+    // resumeBullets가 있으면 이력서용 문구를, 없으면 "내 역할" 앞 2줄을 사용
+    const bullets = clean(p.resumeBullets).length ? p.resumeBullets : clean(p.role).slice(0, 2);
+    return entry(p.period, title, sub, list(bullets), techLine(p.tech));
   }
 
   function table(rows) {

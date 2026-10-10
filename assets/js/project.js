@@ -85,6 +85,7 @@
         b.text && App.paragraphs(b.text),
         clean(b.items).length ? h('ul', {}, clean(b.items).map((v) => h('li', {}, v))) : null,
         b.code && h('pre', { class: 'code' }, h('code', {}, b.code)),
+        b.table && dataTable(b.table),
         isEmpty(b.image) ? null : figure(b.image))),
     ];
   }
@@ -118,7 +119,7 @@
 
   function dataTable(t) {
     return h('div', { class: 'table-wrap' },
-      h('table', { class: 'data-table' },
+      h('table', { class: t.wrap ? 'data-table wrap' : 'data-table' },
         t.caption && h('caption', {}, t.caption),
         clean(t.head).length ? h('thead', {}, h('tr', {}, t.head.map((c) => h('th', { scope: 'col' }, c)))) : null,
         h('tbody', {}, t.rows.map((row) => h('tr', {}, row.map((c, i) => (i === 0 ? h('th', { scope: 'row' }, c) : h('td', {}, c)))))),

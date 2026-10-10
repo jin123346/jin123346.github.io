@@ -71,8 +71,32 @@ const App = (() => {
     return items.length ? h('ul', { class: 'tags' }, items.map((t) => h('li', {}, t))) : null;
   }
 
+  /**
+   * 본문 텍스트 → 문단
+   *  - 빈 줄: 문단 구분
+   *  - "■ 제목": 굵은 소제목
+   *  - "- 항목" (또는 "• 항목"): 들여쓴 목록. "상황: …"처럼 앞에 짧은 라벨이 있으면 라벨을 굵게
+   *  - 그 밖의 줄바꿈: 줄마다 따로 표시
+   */
   function paragraphs(text) {
-    return String(text).split(/\n{2,}/).map((p) => p.trim()).filter(Boolean).map((p) => h('p', {}, p));
+    return String(text).split(/\n{2,}/).map((p) => p.trim()).filter(Boolean).map((block) => {
+      const lines = block.split('\n').map((l) => l.trim()).filter(Boolean);
+      if (lines.length === 1 && !/^(■|[-•]\s)/.test(lines[0])) return h('p', {}, lines[0]);
+      const out = [];
+      let list = null;
+      for (const line of lines) {
+        if (/^[-•]\s+/.test(line)) {
+          if (!list) { list = h('ul', { class: 'text-list' }); out.push(list); }
+          const body = line.replace(/^[-•]\s+/, '');
+          const m = body.match(/^([^:：]{1,8})[:：]\s*(.+)$/);
+          list.append(m ? h('li', {}, h('strong', {}, `${m[1]}:`), ' ', m[2]) : h('li', {}, body));
+          continue;
+        }
+        list = null;
+        out.push(/^■\s*/.test(line) ? h('p', { class: 'text-head' }, line.replace(/^■\s*/, '')) : h('p', {}, line));
+      }
+      return h('div', { class: 'text-block' }, out);
+    });
   }
 
   function projectUrl(id) {
