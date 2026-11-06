@@ -21,7 +21,7 @@
     App.bindProfile(profile);
     App.render(root, [h('div', { class: 'home-layout' },
       h('aside', { class: 'home-side' }, renderHero(profile), renderQuickLinks()),
-      h('div', { class: 'home-main' }, renderRecentPosts(posts)),
+      h('div', { class: 'home-main' }, renderRecentPosts(posts), renderGithub()),
     )]);
   } catch (err) {
     App.showError(root, err);
@@ -50,6 +50,24 @@
     ];
     return h('nav', { class: 'quick-links', 'aria-label': '바로가기' }, items.map(([title, href]) =>
       h('a', { href }, title, h('span', { 'aria-hidden': 'true' }, '→'))));
+  }
+
+  function renderGithub() {
+    const user = 'jin123346';
+    // ponytail: 외부 이미지 서비스에 의존. 사라지면 Actions에서 GitHub GraphQL로 빌드 때 직접 생성.
+    const section = h('section', { class: 'section', 'aria-labelledby': 'github-title' },
+      h('div', { class: 'section-head' },
+        h('h2', { id: 'github-title' }, 'GitHub 활동'),
+        App.link(`https://github.com/${user}`, 'GitHub 보기 →')),
+      h('div', { class: 'github-graph' },
+        h('img', {
+          src: `https://ghchart.rshah.org/2f5d50/${user}`, alt: `${user}의 최근 1년 GitHub 기여 그래프`,
+          width: 663, height: 104, loading: 'lazy', decoding: 'async', onerror: () => section.remove(),
+          // 좁은 화면에서 가장 최근 활동이 먼저 보이도록
+          onload: (e) => { e.target.parentElement.scrollLeft = e.target.parentElement.scrollWidth; },
+        })),
+    );
+    return section;
   }
 
   function renderRecentPosts(posts) {

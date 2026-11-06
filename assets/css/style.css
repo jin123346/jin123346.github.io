@@ -134,6 +134,10 @@ main { padding: 56px 0 88px; min-height: 60vh; }
 /* 홈: 왼쪽 프로필, 오른쪽 최근 글 → 프로젝트 */
 .home-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; }
 .home-main > .section:first-child { margin-top: 0; }
+.home-main > .section + .section { margin-top: 56px; }
+/* 그래프 글자가 어두운 이미지라 다크모드에서도 흰 배경. 좁은 화면은 가로 스크롤 */
+.github-graph { overflow-x: auto; padding: 14px; background: #fff; border: 1px solid var(--border); border-radius: var(--radius); }
+.github-graph img { width: 100%; min-width: 560px; max-width: none; }
 .projects-head { margin: 0 0 32px; }
 .projects-head .subtitle { margin-bottom: 0; }
 .recent-posts { list-style: none; margin: 0; padding: 0; }

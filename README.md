@@ -10,7 +10,7 @@
 &nbsp;
 <a href="https://jin123346.github.io/resume.html#career-detail"><img src="https://img.shields.io/badge/Career-경력기술서-4A7A6C?style=for-the-badge&logo=bookstack&logoColor=white" height="42" alt="경력기술서"></a>
 &nbsp;
-<a href="https://jin123346.github.io"><img src="https://img.shields.io/badge/Portfolio-프로젝트-6E8F86?style=for-the-badge&logo=githubpages&logoColor=white" height="42" alt="포트폴리오"></a>
+<a href="https://jin123346.github.io/projects.html"><img src="https://img.shields.io/badge/Portfolio-프로젝트-6E8F86?style=for-the-badge&logo=githubpages&logoColor=white" height="42" alt="포트폴리오"></a>
 
 <br>
 
@@ -97,6 +97,6 @@
 
 <a href="https://jin123346.github.io/resume.html"><img src="https://img.shields.io/badge/이력서_·_경력기술서_보기_→-2F5D50?style=for-the-badge" height="46" alt="이력서 · 경력기술서 보기"></a>
 
-<sub>이 사이트는 순수 HTML · CSS · JavaScript로 만들고 GitHub Pages로 배포했습니다.<br>콘텐츠는 JSON으로 분리되어 있고, 이력서는 인쇄용 CSS로 A4 PDF 출력을 지원합니다. · <a href="docs/GUIDE.md">관리 가이드</a></sub>
+<sub>이 사이트는 HTML · CSS · JavaScript로 만들고 GitHub Actions와 GitHub Pages로 배포합니다.<br>이력서·프로젝트 콘텐츠는 JSON으로, 기술 블로그는 Markdown으로 관리하며, 이력서는 인쇄용 CSS로 A4 PDF 출력을 지원합니다. · <a href="docs/GUIDE.md">관리 가이드</a></sub>
 
 </div>
