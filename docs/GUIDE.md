@@ -23,7 +23,8 @@ jin123346.github.io/
 │   ├── js/               # common.js(공통) + main / resume / project.js
 │   ├── images/           # favicon, og-image, profile, 프로젝트 이미지
 │   └── files/            # 발표자료·보고서 PDF
-├── content/blog/         # 블로그 글 (Markdown) + _template.md
+├── content/blog/         # 블로그 글 (Markdown)
+├── templates/            # 글 작성 템플릿 (사이트에 배포되지 않음)
 ├── scripts/              # build.mjs(사이트 빌드) + build.test.mjs(테스트)
 ├── .github/workflows/    # push 시 빌드·배포
 ├── _site/                # 빌드 결과 (.gitignore — 실제 배포되는 폴더)
@@ -118,7 +119,7 @@ jin123346.github.io/
 
 ## 블로그 글 쓰기
 
-1. `content/blog/_template.md` 를 복사해 `content/blog/<폴더>/<파일명>.md` 로 저장합니다. 폴더는 정리용이며 화면에는 영향이 없습니다.
+1. `templates/` 의 `troubleshooting.md`(오류·장애 해결), `tech-note.md`(기술 정리), `algorithm.md`(알고리즘 풀이), `til.md`(짧은 기록) 중 하나를 복사해 `content/blog/<폴더>/<파일명>.md` 로 저장합니다. 폴더는 정리용이며 화면에는 영향이 없습니다.
 2. 내용을 쓰고 `draft: false` 로 바꿉니다.
 3. push 하면 목록, 상세, 검색, 사이트맵, RSS에 자동 반영됩니다.
 
