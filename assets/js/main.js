@@ -1,25 +1,28 @@
 'use strict';
 
 /**
- * 메인 = 포트폴리오: 짧은 소개 + 프로젝트 카드
- * 경력·역량·학력 등 나머지는 모두 이력서 페이지(resume.html)에서 다룹니다.
+ * 메인 = 블로그형 첫 화면: 왼쪽 프로필·바로가기 + 오른쪽 최근 글
+ * 프로젝트는 projects.html, 경력·역량·학력 등은 resume.html 에서 다룹니다.
  */
 (async () => {
-  const { h, isEmpty, clean } = App;
+  const { h } = App;
   const root = document.getElementById('app');
 
-  /** projects.json 의 category 값별로 묶어서 표시 (순서도 이 목록 순서) */
-  const GROUPS = [
-    { key: 'work', title: (items) => `실무${items[0].org ? ` · ${items[0].org}` : ''}` },
-    { key: 'personal', title: () => '개인 프로젝트' },
-    { key: 'team', title: () => '팀 프로젝트 (교육과정)' },
-  ];
+  // 프로젝트가 홈에 있던 때의 링크(/#projects)를 새 페이지로 연결합니다.
+  if (location.hash === '#projects') {
+    location.replace('projects.html');
+    return;
+  }
 
   try {
-    const [resume, projects] = await Promise.all([App.loadJSON('resume'), App.loadJSON('projects')]);
+    // recent-posts.json 은 빌드 때 생성됩니다. 루트에서 바로 띄운 로컬 서버에서는 빈 목록으로 표시합니다.
+    const [resume, posts] = await Promise.all([App.loadJSON('resume'), App.loadJSON('recent-posts').catch(() => [])]);
     const profile = await App.loadProfile(resume);
     App.bindProfile(profile);
-    App.render(root, [renderHero(profile), renderProjects(projects)]);
+    App.render(root, [h('div', { class: 'home-layout' },
+      h('aside', { class: 'home-side' }, renderHero(profile), renderQuickLinks()),
+      h('div', { class: 'home-main' }, renderRecentPosts(posts)),
+    )]);
   } catch (err) {
     App.showError(root, err);
   }
@@ -38,39 +41,28 @@
     );
   }
 
-  function renderProjects(all) {
-    const list = clean(all);
-    const featured = list.filter((p) => p.featured);
-    const items = featured.length ? featured : list;
-    if (!items.length) return null;
-
-    const known = GROUPS.map((g) => g.key);
-    const groups = GROUPS.map((g) => {
-      const members = items.filter((p) => p.category === g.key);
-      return { title: members.length ? g.title(members) : '', items: members };
-    });
-    const rest = items.filter((p) => !known.includes(p.category));
-    if (rest.length) groups.push({ title: '기타', items: rest });
-
-    return h('section', { class: 'section', id: 'projects', 'aria-labelledby': 'projects-title' },
-      h('div', { class: 'section-head' }, h('h2', { id: 'projects-title' }, '프로젝트')),
-      groups.filter((x) => x.items.length).map((x) => h('div', { class: 'project-group' },
-        h('h3', { class: 'group-title' }, x.title, h('span', { class: 'count' }, x.items.length)),
-        h('div', { class: 'project-grid' }, x.items.map(card)),
-      )),
-    );
+  function renderQuickLinks() {
+    const items = [
+      ['이력서', 'resume.html'],
+      ['프로젝트', 'projects.html'],
+      ['경력기술서', 'resume.html#career-detail'],
+      ['블로그', 'blog/'],
+    ];
+    return h('nav', { class: 'quick-links', 'aria-label': '바로가기' }, items.map(([title, href]) =>
+      h('a', { href }, title, h('span', { 'aria-hidden': 'true' }, '→'))));
   }
 
-  function card(p) {
-    const meta = [p.period, p.team].filter((v) => !isEmpty(v)).join(' · ');
-    return h('a', { class: 'card', href: App.projectUrl(p.id) },
-      App.thumbnail(p),
-      h('div', { class: 'card-body' },
-        meta && h('span', { class: 'meta' }, meta),
-        h('h3', {}, p.title),
-        p.subtitle && h('p', {}, p.subtitle),
-        App.tags(p.tags),
-      ),
+  function renderRecentPosts(posts) {
+    return h('section', { class: 'section', 'aria-labelledby': 'recent-title' },
+      h('div', { class: 'section-head' },
+        h('h2', { id: 'recent-title' }, '최근 글'),
+        h('a', { href: 'blog/' }, '전체 글 보기 →')),
+      posts.length
+        ? h('ul', { class: 'recent-posts' }, posts.map((p) => h('li', {},
+          h('span', { class: 'meta' }, `${p.category} · ${p.date} · 약 ${p.minutes}분`),
+          h('h3', {}, h('a', { href: p.url }, p.title)),
+          h('p', {}, p.description))))
+        : h('p', { class: 'empty-note' }, '첫 글을 준비하고 있습니다.'),
     );
   }
 })();

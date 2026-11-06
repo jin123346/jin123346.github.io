@@ -77,6 +77,12 @@ h1, h2, h3, h4 { line-height: 1.35; letter-spacing: -0.01em; }
 
 main { padding: 56px 0 88px; min-height: 60vh; }
 
+/* 내용이 적어도 푸터는 화면 맨 아래에, 본문과는 여백을 두고 표시 (인쇄 제외) */
+@media screen {
+  body { display: flex; flex-direction: column; min-height: 100vh; }
+  main.container { flex: 1 0 auto; padding-top: 40px; padding-bottom: 72px; }
+}
+
 /* ==========================================================================
    Common components
    ========================================================================== */
@@ -124,6 +130,37 @@ main { padding: 56px 0 88px; min-height: 60vh; }
 .hero .intro { color: var(--muted); max-width: 700px; margin: 18px 0 0; }
 .hero .intro p { margin: 0 0 12px; }
 .hero .intro p:last-child { margin-bottom: 0; }
+
+/* 홈: 왼쪽 프로필, 오른쪽 최근 글 → 프로젝트 */
+.home-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; }
+.home-main > .section:first-child { margin-top: 0; }
+.projects-head { margin: 0 0 32px; }
+.projects-head .subtitle { margin-bottom: 0; }
+.recent-posts { list-style: none; margin: 0; padding: 0; }
+.recent-posts li { padding: 18px 0; border-top: 1px solid var(--border); }
+.recent-posts li:first-child { border-top: 0; padding-top: 0; }
+.recent-posts .meta { font-size: 13.5px; color: var(--muted); }
+.recent-posts h3 { margin: 2px 0 4px; font-size: 20px; }
+.recent-posts h3 a { color: inherit; text-decoration: none; }
+.recent-posts h3 a:hover { color: var(--accent); }
+.recent-posts p { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.6; }
+@media (min-width: 860px) {
+  .home-layout { grid-template-columns: 270px minmax(0, 1fr); gap: 56px; }
+  .home-side .hero h1 { font-size: 32px; }
+  .home-side .hero .tagline { font-size: 17px; }
+  .home-side .hero .intro { font-size: 15px; }
+  .home-side .contacts { flex-direction: column; font-size: 14.5px; }
+}
+
+.quick-links { margin-top: 28px; border-top: 1px solid var(--border); }
+.quick-links a {
+  display: flex; justify-content: space-between; align-items: center; padding: 11px 2px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text); font-size: 15px; font-weight: 500; text-decoration: none;
+}
+.quick-links a span { color: var(--muted); transition: transform .15s; }
+.quick-links a:hover { color: var(--accent); }
+.quick-links a:hover span { color: var(--accent); transform: translateX(3px); }
 
 .project-group + .project-group { margin-top: 48px; }
 .group-title {

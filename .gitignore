@@ -1,2 +1,6 @@
 # 공개하지 않는 개인정보 (로컬 인쇄용 PDF에만 사용)
 data/private.json
+
+# 블로그 빌드
+node_modules/
+_site/
