@@ -38,6 +38,7 @@
         section('프로젝트', clean(projects).filter((p) => p.resume !== false).map(project)),
         section('기술 스택', clean(resume.skills).map((s) =>
           h('div', { class: 'skill-row' }, h('h3', {}, s.category), h('div', {}, clean(s.items).join(', '))))),
+        resume.aiUsage && section(resume.aiUsage.title || 'AI 활용 방식', aiUsageList(resume.aiUsage.items)),
         section('자격증', table(clean(resume.certifications).map((c) => [c.name, c.issuer, c.date]))),
         section('수상', table(clean(resume.awards).map((a) => [`${a.title}${a.prize ? ` — ${a.prize}` : ''}`, a.org, a.date]))),
       ),
@@ -116,6 +117,15 @@
   function strengthList(strengths) {
     const xs = clean(strengths);
     return xs.length ? h('ul', { class: 'strength-list' }, xs.map((s) => h('li', {}, h('b', {}, s.title), s.desc ? ` — ${s.desc}` : ''))) : null;
+  }
+
+  /** AI 활용 방식: 굵은 라벨 — 설명 → 근거 링크(선택) */
+  function aiUsageList(items) {
+    const xs = clean(items);
+    return xs.length ? h('ul', { class: 'strength-list' }, xs.map((a) => h('li', {},
+      h('b', {}, a.label),
+      a.desc ? ` — ${a.desc}` : '',
+      a.link && !isEmpty(a.link.url) ? [' → ', h('a', { href: a.link.url }, a.link.text || a.link.url)] : null))) : null;
   }
 
   function techLine(tech) {
