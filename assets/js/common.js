@@ -126,7 +126,7 @@ const App = (() => {
     }
     for (const l of clean(profile.links)) {
       if (isEmpty(l.url)) continue;
-      items.push(h('li', {}, h('span', { class: 'label' }, l.label), link(l.url, l.url.replace(/^https?:\/\//, '').replace(/\/$/, ''))));
+      items.push(h('li', {}, h('span', { class: 'label' }, l.label), link(l.url, l.text || l.url.replace(/^https?:\/\//, '').replace(/\/$/, ''))));
     }
     return items.length ? h('ul', { class: 'contacts' }, items) : null;
   }
