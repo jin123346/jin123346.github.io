@@ -18,7 +18,10 @@
     App.render(root, [
       h('header', { class: 'p-head projects-head' },
         h('h1', {}, '프로젝트'),
-        h('p', { class: 'subtitle' }, '실무와 개인·팀 프로젝트의 문제 정의, 역할, 해결 방법, 결과를 정리했습니다.')),
+        h('p', { class: 'subtitle' }, '실무와 개인·팀 프로젝트의 문제 정의, 역할, 해결 방법, 결과를 정리했습니다.'),
+        // 전체 프로젝트를 표지와 함께 한 PDF로 (portfolio.html이 열리면서 인쇄 창 표시)
+        h('div', { class: 'actions' },
+          h('a', { class: 'btn btn-ghost', href: 'portfolio.html?print=1' }, '포트폴리오 PDF'))),
       renderProjects(projects),
     ]);
   } catch (err) {

@@ -360,6 +360,31 @@ figure { margin: 0; }
 /* ==========================================================================
    Print (A4) — 다크모드여도 인쇄는 항상 밝은 테마
    ========================================================================== */
+/* ==========================================================================
+   포트폴리오 전체 PDF (portfolio.html) — 화면용
+   ========================================================================== */
+.print-url, .print-only { display: none; }
+.projects-head .actions { margin-top: 18px; }
+.pf-toolbar {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px 20px;
+  padding: 16px 20px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface);
+}
+.pf-toolbar p { margin: 0; color: var(--muted); font-size: 15px; flex: 1 1 320px; }
+.pf-toolbar .btn:disabled { opacity: .6; cursor: progress; }
+.pf-cover { margin-top: 48px; }
+.pf-cover .eyebrow { color: var(--accent); font-weight: 700; letter-spacing: .12em; font-size: 14px; margin: 0 0 8px; }
+.pf-cover h1 { font-size: clamp(34px, 6vw, 44px); margin: 0; }
+.pf-cover .title { color: var(--accent); font-weight: 600; margin: 4px 0 0; }
+.pf-cover .tagline { margin: 10px 0 0; }
+.pf-cover > h2 { font-size: 18px; margin: 44px 0 4px; padding-bottom: 8px; border-bottom: 2px solid var(--accent); }
+.pf-toc { margin: 0; padding-left: 24px; }
+.pf-toc li { padding: 10px 0; border-bottom: 1px dashed var(--border); }
+.pf-toc a { color: var(--text); font-weight: 600; text-decoration: none; }
+.pf-toc a:hover { color: var(--accent); }
+.pf-toc .sub, .pf-toc .meta { display: block; color: var(--muted); font-size: 14.5px; margin-top: 2px; }
+.pf-toc .meta { font-size: 13.5px; }
+.pf-project { margin-top: 72px; padding-top: 40px; border-top: 2px solid var(--accent); }
+
 @media print {
   :root {
     --bg: #ffffff; --surface: #ffffff; --text: #111111; --muted: #555555;
@@ -428,4 +453,68 @@ figure { margin: 0; }
   .entry.long { break-inside: auto; page-break-inside: auto; }
   h2, h3, h4 { break-after: avoid; page-break-after: avoid; }
   p { orphans: 3; widows: 3; }
+}
+
+/* ==========================================================================
+   프로젝트 상세 인쇄 (project.html · portfolio.html 공통)
+   ========================================================================== */
+@media print {
+  .print-url { display: inline; }
+  .print-only { display: block; }
+  .back-link, .pager { display: none !important; }
+
+  .p-head { margin-top: 0; }
+  .p-head .meta { font-size: 9pt; margin-bottom: 2px; }
+  .p-head h1 { font-size: 19pt; }
+  .p-head .subtitle { font-size: 10.5pt; margin: 6px 0 10px; }
+  .p-cover { margin-top: 12px; }
+  .p-section { margin-top: 18px; }
+  .p-section h2 { font-size: 12.5pt; margin-bottom: 8px; }
+  .p-section p { margin-bottom: 8px; }
+  .p-section li + li { margin-top: 3px; }
+  .block + .block, ul + .block { margin-top: 14px; }
+  .block h3 { font-size: 10.8pt; margin-bottom: 4px; }
+  .stats { gap: 8px; margin-bottom: 10px; }
+  .stat { padding: 8px 10px; }
+  .stat .value { font-size: 14pt; }
+  .stat .label { font-size: 8.8pt; }
+
+  /* 이미지 크기 제한 (세로로 긴 이미지도 한 페이지 안에), 동영상은 주소 안내로 대체 */
+  .p-cover img, .p-section figure img {
+    width: auto; max-width: 100%; max-height: 110mm; margin: 0 auto; object-fit: contain;
+  }
+  .p-cover { border: 0; }
+  .p-section figure video { display: none; }
+  .video-note { margin: 0; font-size: 9pt; }
+  .gallery { gap: 12px; }
+  .block figure { margin-top: 8px; }
+  .p-section figcaption { font-size: 8.8pt; margin-top: 4px; }
+
+  /* 코드·표: 가로 스크롤 대신 줄바꿈 (종이에서 오른쪽이 잘리지 않게) */
+  pre.code { white-space: pre-wrap; overflow-wrap: anywhere; overflow: visible; font-size: 7.8pt; padding: 8px 10px; }
+  .table-wrap { overflow: visible; margin-bottom: 10px; }
+  .data-table, .data-table.wrap { min-width: 0; font-size: 8.6pt; }
+  .data-table th, .data-table td { white-space: normal; padding: 5px 8px; }
+
+  /* 페이지 경계에서 잘리지 않게 (한 페이지보다 길면 브라우저가 나눔) */
+  pre.code, .table-wrap, .data-table tr, .stats, .pf-toc li { break-inside: avoid; page-break-inside: avoid; }
+
+  /* 링크: 버튼 대신 "라벨  주소" 목록 — 기본 인쇄 규칙의 .actions 숨김보다 우선 */
+  .p-section .p-links { display: block !important; margin: 0; }
+  .p-links .btn {
+    display: block; padding: 0; border: 0; border-radius: 0; background: none;
+    color: var(--text); font-size: 9.5pt; font-weight: 600; text-align: left;
+  }
+  .p-links .btn + .btn { margin-top: 3px; }
+  .print-url { margin-left: 8px; font-weight: 400; color: var(--accent); overflow-wrap: anywhere; }
+
+  /* 포트폴리오: 표지 1쪽 + 프로젝트마다 새 페이지 */
+  .pf-cover { margin-top: 0; }
+  .pf-cover h1 { font-size: 26pt; }
+  .pf-cover .eyebrow { font-size: 9pt; }
+  .pf-cover > h2 { font-size: 12.5pt; margin-top: 28px; }
+  .pf-toc li { padding: 6px 0; }
+  .pf-toc .sub { font-size: 9pt; }
+  .pf-toc .meta { font-size: 8.6pt; }
+  .pf-project { break-before: page; page-break-before: always; margin-top: 0; padding-top: 0; border-top: 0; }
 }
